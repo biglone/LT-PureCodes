@@ -1,0 +1,63 @@
+/* labelVersion */
+QLabel#labelVersion {
+	color: rgb(94, 103, 112);
+	font-size: 9pt;
+}
+
+/* btnLogin */
+QPushButton#btnPhoneNext, QPushButton#btnPwdNext {
+	font-size: 14pt;
+	border-image: url(:/images/login_normal.png);
+	color: white; 
+}
+
+QPushButton#btnPhoneNext:hover:!pressed, QPushButton#btnPwdNext:hover:!pressed {
+	border-image: url(:/images/login_hover.png);
+}
+
+QPushButton#btnPhoneNext:hover:pressed, QPushButton#btnPwdNext:hover:pressed {
+	border-image: url(:/images/login_pressed.png);
+}
+
+/* btnEnterCompany, btnErrorBack */
+QPushButton#btnEnterCompany, QPushButton#btnErrorBack {
+	font-size: 14pt;
+	border-image: url(:/images/enter_normal.png);
+	color: white; 
+}
+
+QPushButton#btnEnterCompany:hover:!pressed, QPushButton#btnErrorBack:hover:!pressed {
+	border-image: url(:/images/enter_hover.png);
+}
+
+QPushButton#btnEnterCompany:hover:pressed, QPushButton#btnErrorBack:hover:pressed {
+	border-image: url(:/images/enter_pressed.png);
+}
+
+/* leditPwd leditUser */
+QLineEdit#leditPwd, QLineEdit#leditPhone {
+	padding-right: 2px;
+	padding-left: 2px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	border-image: none;
+	border-top: 0px;
+	border-left: 0px;
+	border-right: 0px;
+	border-bottom: 0px;
+	background: white;
+	color: rgb(94, 103, 112);
+	font-size: 11pt;
+}
+QLineEdit#leditPwd:!read-only:!disabled:hover, QLineEdit#leditPhone:!read-only:!disabled:hover {
+	border-image: none;
+}
+QLineEdit#leditPwd:!read-only:!disabled:focus, QLineEdit#leditPhone:!read-only:!disabled:focus {
+	border-image: none;
+}
+QLineEdit#leditPwd:disabled, QLineEdit#leditPhone:disabled {
+	border-image: none;
+}
+QLineEdit#leditPwd:read-only, QLineEdit#leditPhone:read-only {
+	border-image: none;
+}

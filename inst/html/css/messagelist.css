@@ -1,0 +1,757 @@
+::-webkit-scrollbar {
+	width: 8px;
+}
+
+::-webkit-scrollbar-track-piece:vertical{
+	border-radius: 10px;
+	background-image:url(qrc:/theme/scrollbar/scrollbar_vertical_normal.png);
+	background-color:#ECECEC;
+}
+
+::-webkit-scrollbar-thumb:vertical{
+	border: 3px solid transparent;
+	border-radius: 10px;
+	background-image:url(qrc:/theme/scrollbar/scrollbar_vertical_handle_normal.png);
+	background-color:#CFCFCF;
+}
+
+::-webkit-scrollbar-thumb:vertical:hover {
+	border-radius: 10px;
+	background-image:url(qrc:/theme/scrollbar/scrollbar_vertical_handle_hover.png);
+	background-color:#A0A0A0;
+}
+
+::-webkit-scrollbar-thumb:vertical:active {
+	border-radius: 10px;
+	background-image:url(qrc:/theme/scrollbar/scrollbar_vertical_handle_pressed.png);
+	background-color:#A0A0A0;
+}
+
+::-webkit-scrollbar-button:vertical:start:increment,
+::-webkit-scrollbar-button:vertical:end:decrement{
+	display: none;
+}
+
+::-webkit-scrollbar-button:vertical:start:decrement {
+	background-image: url(qrc:/theme/scrollbar/scrollbar_vertical_subline_normal.png);
+	background-repeat: no-repeat;
+	background-position:center;
+}
+
+::-webkit-scrollbar-button:vertical:start:decrement:hover {
+	background-image: url(qrc:/theme/scrollbar/scrollbar_vertical_subline_hover.png);
+	background-repeat: no-repeat;
+	background-position:center;
+}
+
+::-webkit-scrollbar-button:vertical:start:decrement:active {
+	background-image: url(qrc:/theme/scrollbar/scrollbar_vertical_subline_pressed.png);
+	background-repeat: no-repeat;
+	background-position:center;
+}
+
+::-webkit-scrollbar-button:vertical:end:increment {
+	background-image: url(qrc:/theme/scrollbar/scrollbar_vertical_addline_normal.png);
+	background-repeat: no-repeat;
+	background-position:center;
+}
+
+::-webkit-scrollbar-button:vertical:end:increment:hover {
+	background-image: url(qrc:/theme/scrollbar/scrollbar_vertical_addline_hover.png);
+	background-repeat: no-repeat;
+	background-position:center;
+}
+
+::-webkit-scrollbar-button:vertical:end:decrement:active {
+	background-image: url(qrc:/theme/scrollbar/scrollbar_vertical_addline_pressed.png);
+	background-repeat: no-repeat;
+	background-position:center;
+}
+
+body {
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+	height: 100%;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	line-height: 1.5;
+	font-family: 微软雅黑, 宋体;
+	font-size:9pt;
+}
+
+/* 信息框 */
+.chatBox_msgList {
+	display: block;
+    top: 0;
+	bottom: 0;
+	margin: 0 auto;
+	width: 100%;
+	overflow: none;
+}
+
+.chatBox_myMsg {
+		display: block;
+		margin-left: 12px;
+		margin-right: 12px;
+		padding: 6px 34px;
+		position: relative;
+}
+.chatBox_myMsg .msgHead {
+		color: #008040;
+		overflow: hidden;
+		zoom: 1
+}
+.chatBox_myMsg .msgBody {
+		position: relative;
+		word-wrap: break-word;
+}
+
+/* 提示消息样式 */
+.chatBox_infoMsg {
+		display: block;
+		padding: 6px 72px;
+}
+
+.chatBox_infoMsg .msgBody {
+		background-color: #e8e8e8;
+		color: #666666;
+		padding: 5px 10px;
+		border-radius: 3px;
+		margin: 0 auto;
+		display: table;
+		word-wrap: break-word;
+}
+
+.tipContainer {
+		margin-left: 20px; 
+		position: relative;
+}
+
+.tipImage {
+		position: absolute; 
+		left: -20px; 
+		top: 1px;
+}
+
+.chatBox_buddyMsg {
+		display: block;
+		margin-left: 12px;
+		margin-right: 12px;
+		padding: 6px 34px;
+		position: relative;
+}
+
+.chatBox_buddyMsg .msgHead {
+	margin-top: -3px;
+	color: #888;
+	overflow: hidden;
+	zoom: 1
+}
+
+.chatBox_buddyMsg .msgBody {
+	position: relative;
+	word-wrap: break-word;
+}
+
+.sendErrorTip {
+	position: absolute;
+	left: -26px;
+	top:  1px;
+	display: none;
+}
+
+.secret {
+	margin: 0;
+}
+
+.secret > * {
+	margin-left: 6px;
+}
+
+.secret>:first-child {
+	margin-left: 0px;
+}
+
+.secret > img {
+	position: relative;
+	top: 4px;
+}
+
+.readtime {
+	color: #f15a29;
+}
+
+.chatBox_historySep {
+	text-align: center;
+	padding-bottom: 6px;
+	padding-top: 6px;
+}
+
+.avatar {
+	width: 30px;
+	height: 30px;
+	border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+}
+
+/************** 消息容器 ****************/
+.msgContainer {
+	position: relative;
+}
+
+.msgContainer-send{
+	margin-right: 12px;
+}
+
+.msgContainer-receive{
+	margin-left: 12px;
+}
+
+.msgContainer i {
+	position: absolute;
+	top: 0px;
+}
+
+.msgContainer i.send{
+	right: -46px;
+}
+
+.msgContainer i.receive{
+	left: -46px;
+}
+
+.msgContainer .arrow-down {
+	position: absolute;
+	top: 9px;
+  	width:0px;
+  	height:0px;
+  	border-left:10px solid transparent;
+  	border-right:10px solid transparent;
+  	font-size:0px;
+  	line-height:0px;
+}
+
+.msgContainer .arrow-down-send{
+	right: -8px;
+	border-top:10px solid #c2e4ff;
+}
+
+.msgContainer .arrow-down-receive{
+	left: -8px;
+	border-top:10px solid #F2F1F6;
+}
+
+.msgContainer .msgBodyContainer-send {
+	float:right;
+	max-width: 90%;
+}
+
+.msgContainer .msgBodyContainer-receive {
+	float:left;
+	min-height: 20px;
+	max-width: 90%;
+}
+
+.bubble-send {
+	padding-left: 8px;
+	padding-right: 8px;
+	padding-bottom: 6px;
+	padding-top:6px; 
+	border-radius: 3px;
+	background-color: #C2E4FF;
+	min-height: 22px;
+}
+
+.bubble-receive {
+	padding-left: 8px;
+	padding-right: 8px;
+	padding-bottom: 6px;
+	padding-top:6px; 
+	border-radius: 3px;
+	background-color: #F2F1F6;
+	min-height: 22px;
+}
+
+.nonBubble-send {
+	padding: 2px;
+	border-radius: 3px;
+	background-color: #d7d9e4;
+	min-height: 32px;
+}
+
+.nonBubble-receive {
+	padding: 2px;
+	border-radius: 3px;
+	background-color: #d7d9e4;
+	min-height: 32px;
+}
+
+.clearfix:after { 
+    content: "."; 
+    display: block; 
+    clear: both; 
+    visibility: hidden; 
+    line-height: 0; 
+    height: 0; 
+} 
+
+div.msgBodyContainer-receive>div.secret {
+	text-align: left;
+}
+
+div.msgBodyContainer-send>div.secret {
+	text-align: right;
+}
+
+.img_autodisplay {
+	border-radius: 3px;
+	cursor: pointer;
+}
+
+/* 消息时间 */
+.msgtime {
+	height: 24px;
+}
+
+.msgtime a {
+	display: block; 
+	color: #999999; 
+	text-decoration: none;
+	width: 100%;
+	text-align: center;
+	cursor: text;
+}
+
+.msgtime a:focus {
+	outline:none; 
+}
+
+/* 进度条 */
+.process-bar {
+	width:100px;
+	display:inline-block;
+	*zoom:1;
+}
+
+.pb-wrapper {
+	border:1px solid gray;
+	border-style:solid none;
+	position:relative;
+	background:#cfd0d2;
+}
+
+.pb-container {
+	border:1px solid gray;
+	border-style:none solid;
+	height:12px;
+	position:relative;
+	left:-1px;
+	margin-right:-2px;
+	font:1px/0 arial;
+	padding:1px;
+}
+
+.pb-highlight {
+	position:absolute;
+	left:0;
+	top:0;
+	_top:1px;
+	width:100%;
+	opacity:0.6;
+	filter:alpha(opacity=60);
+	height:6px;
+	background:white;
+	font-size:1px;
+	line-height:0;
+	z-index:1
+}
+
+.pb-text {
+	width:100%;
+	position:absolute;
+	left:0;
+	top:0;
+	text-align:center;
+	font:10px/12px arial;
+}
+
+.pb-value {
+	height:100%;
+	width:0%;
+	background:#19d73d;
+}
+
+.pb-text {
+	color:black;
+	font:10px/12px arial
+}
+
+.skin-green .pb-wrapper {
+	border-color:#666;
+	border-top-color:#628c2d;
+}
+
+.skin-green .pb-container {
+	border-color:#666;
+	border-left-color:#628c2d;
+}
+
+.skin-green .pb-text{
+	color:black 		
+}
+
+/* 提示框 */
+.ui-notify {
+	position: relative;
+	border: 0px solid #aaa;
+	padding: 8px 12px;
+	color: #333;
+	background: #fff;
+	font-size: 1em;
+	line-height: 1.5em;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	zoom: 1;
+}
+
+.ui-notify .ui-notify-icon {
+	display:block;
+	width: 16px;
+	height: 16px;
+	float: left;
+	margin-right: .5em;
+	background: url(qrc:/html/images/notify-icon.png) no-repeat top left;
+	text-indent: -99999px;
+}
+
+.ui-notify-shadow {
+	-webkit-box-shadow: 0px 2px 10px rgba(50, 50, 50, 0.5);
+	-moz-box-shadow: 0px 2px 10px rgba(50, 50, 50, 0.5);
+	box-shadow: 0px 2px 10px rgba(50, 50, 50, 0.5);
+}
+
+.ui-notify-title {
+	margin-bottom: .4em;
+	font-weight: bold;
+	letter-spacing: 1px;
+}
+
+.ui-notify-context {
+	font-size: .9em;
+}
+
+.ui-notify-close {
+	position: absolute;
+	display: inline-block;
+	*display: inline; 
+	zoom:1;
+	right: 7px; top: 7px;
+	background: url(qrc:/html/images/notify-icon.png) no-repeat scroll 0 0;
+	width: 7px;
+	height: 7px;
+	cursor: pointer;
+	text-indent: -99999px;
+}
+
+.ui-notify-info {
+	background-color: #D3EAF6;
+	border-color: #86A0EF;
+	color: #3a87ad;
+}
+
+.ui-notify-info .ui-notify-icon{
+	background-position: 0 -123px;
+}
+
+.ui-notify-success {
+	background-color: #F4FFEF;
+	border-color: #4EBF3B;
+	color: #4F9F51;
+}
+
+.ui-notify-success .ui-notify-icon{
+	background-position: 0 -189px;
+}
+
+.ui-notify-warn {
+	background-color: #D0E6F2;
+	border-color: #DFD245;
+	color: #c09853;
+}
+
+.ui-notify-warn .ui-notify-icon{
+	background-position: 0 -255px;
+}
+
+.ui-notify-more {
+	border-color: #DFD245;
+	color: black;
+	text-align: center;
+}
+
+.ui-notify-more .ui-notify-icon{
+	
+}
+
+.ui-notify-error {
+	background-color: #f2dede;
+	border-color: #DF7D7D;
+	color: #b94a48;
+}
+
+.ui-notify-error .ui-notify-icon{
+	background-position: 0 -57px;
+}
+
+/* 自定义 */
+.picSpan{
+	float:left;margin-top:1px; 
+}
+			
+.Image {
+	max-width:350px;height:auto;cursor:pointer;
+	border:1px dashed #4E6973;padding: 3px;
+	zoom:expression( function(elm) {
+		if (elm.width>350) {
+			var oldVW = elm.width;
+			elm.width=350;
+			elm.height = elm.height*(350 /oldVW);
+		}
+		elm.style.zoom = '1';
+	}(this));
+}
+
+#moreBarContext{
+        color: rgba(0,120,216,1);
+		/*background-color: rgba(247, 247, 247, 1);*/
+}
+
+#moreBar{
+        /*color: rgba(0,120,216,1) !important;*/
+        font-size: 10pt;
+}
+
+#moreBar:hover{
+        cursor: pointer;
+}
+
+.at-self{
+	border: solid 1px rgb(184, 230, 142);
+	background: rgb(211, 238, 188);
+	color: rgb(0, 0, 0);
+	cursor: pointer;
+}
+
+.at-other{
+	border: none;
+	background: transparent;
+	color: rgb(0, 110, 254);
+	cursor: pointer;
+}
+
+.face-img{
+	vertical-align: text-bottom;
+}
+
+/******************** 音频播放样式 ******************************/
+.audioplay {
+	width:32px;
+	height:32px;
+	float:left;
+	background:transparent url(qrc:/html/images/audio_play.png) no-repeat 1px;
+	/*border:1px solid #6CBEFF;*/
+}
+
+.audioplay:hover {
+	background:transparent url(qrc:/html/images/audio_play_pressed.png) no-repeat 1px;
+}
+
+.audioplay:active {
+	background:transparent url(qrc:/html/images/audio_play_pressed.png) no-repeat 1px;
+}
+
+.audiostop {
+	width:32px;
+	height:32px;
+	float:left;
+	background:transparent url(qrc:/html/images/audio_stop.png) no-repeat 1px;	
+	/*border:1px solid #6CBEFF;*/
+}
+
+.audiostop:hover {
+	background:transparent url(qrc:/html/images/audio_stop_pressed.png) no-repeat 1px;
+}
+
+.audiostop:active {
+	background:transparent url(qrc:/html/images/audio_stop_pressed.png) no-repeat 1px;
+}
+
+.audioplayinfo {
+	width:38px;
+	height:32px;
+	line-height:32px;
+	float:left;
+	/*border:1px solid #ECECEC;*/
+	padding-left:32px;
+	background:transparent url(qrc:/html/images/audio.png) no-repeat 8px;
+	color:#666666;
+	font-size:9pt;
+}
+
+.audioplayinginfo{
+	width:38px;
+	height:32px;
+	line-height:32px;
+	float:left;
+	/*border:1px solid #ECECEC;*/
+	padding-left:32px;
+	background:transparent url(qrc:/html/images/audio_playing.gif) no-repeat 8px;
+	color:#666666;
+	font-size:9pt;
+}
+
+.audioplaysecret{
+	position: absolute;
+	left: 92px;
+	top: -5px;
+	min-width: 58px;
+}
+
+/******************** 附件、进度条样式 ******************************/
+.attachContainer{
+	background-color: transparent;
+	height: 55px;
+	width: 273px;
+}
+
+.fileFocueOut{
+	display:inline-block;
+	border:0px;
+}
+
+.progress {
+  width:150px;
+  height: 7px;
+  margin-top:6px;
+  background: #fff /*#ebebeb*/;
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
+  border-radius: 3px;
+  float:left;
+}
+
+.progress > span {
+  position: relative;
+  float: left;
+  top: 1px;
+  height: 5px;
+  /*line-height: 7px;*/
+  text-align: right;
+  background: #6CBEFF;
+  border-radius: 3px;
+}
+.progress > span > span {
+  padding: 0 8px;
+  font-size: 11px;
+  font-weight: bold;
+  color: #404040;
+  color: rgba(0, 0, 0, 0.7);
+  text-shadow: 0 1px rgba(255, 255, 255, 0.4);
+}
+
+.progress .blue {
+  background: #6CBEFF;
+}
+
+.attacheoperatortip {
+	padding-left:8px;
+	width:75px;
+	float:left;
+	color:#FDAC75;
+	font-weight:bold;
+	font-size:12px;
+	line-height:18px;
+	display:none;
+}
+
+.attacheoperator {
+	float:right;
+}
+
+.startupload{
+	width:20px;
+	height:18px;
+	float:left;
+	background:url(qrc:/html/images/upload.png) no-repeat 1px;
+}
+
+.startupload:hover{
+	background:url(qrc:/html/images/upload_pressed.png) no-repeat 1px;
+}
+
+.startupload:active{
+	background:url(qrc:/html/images/upload_pressed.png) no-repeat 1px;
+}
+
+.stopupload {
+	width:20px;
+	height:18px;
+	float:left;
+	background:url(qrc:/html/images/transfer_cancel.png) no-repeat 1px;
+}
+
+.stopupload:hover {
+	background:url(qrc:/html/images/transfer_cancel_pressed.png) no-repeat 1px;
+}
+
+.stopupload:active {
+	background:url(qrc:/html/images/transfer_cancel_pressed.png) no-repeat 1px;
+}
+
+.startdownload {
+	width:20px;
+	height:18px;
+	float:left;
+	background:url(qrc:/html/images/download.png) no-repeat 1px;
+}
+
+.startdownload:hover {
+	background:url(qrc:/html/images/download_pressed.png) no-repeat 1px;
+}
+
+.startdownload:active {
+	background:url(qrc:/html/images/download_pressed.png) no-repeat 1px;
+}
+
+.stopdownload {
+	width:20px;
+	height:18px;
+	float:left;
+	background:url(qrc:/html/images/transfer_cancel.png) no-repeat 1px;
+}
+
+.stopdownload:hover {
+	background:url(qrc:/html/images/transfer_cancel_pressed.png) no-repeat 1px;
+}
+
+.stopdownload:active {
+	background:url(qrc:/html/images/transfer_cancel_pressed.png) no-repeat 1px;
+}
+
+body {
+	-webkit-user-select: none;  /* Chrome all / Safari all /opera15+*/  
+	-moz-user-select: none;     /* Firefox all */  
+	-ms-user-select: none;      /* IE 10+ */  
+	user-select: none;  
+}
+
+.bodyContext, .msgHead, .tipContainer {
+	-webkit-user-select: auto;  /* Chrome all / Safari all /opera15+*/  
+	-moz-user-select: auto;     /* Firefox all */  
+	-ms-user-select: auto;      /* IE 10+ */  
+	user-select: auto;  
+}
+
+.bodyContext {
+	font-size: 10pt;
+}

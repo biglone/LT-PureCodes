@@ -1,0 +1,41 @@
+
+/* QComboBox */
+QComboBox{
+	padding-top: 2px;
+	padding-left: 2px;
+	padding-right: 2px;
+	padding-bottom: 2px;
+	border-image: url(:/theme/combobox2/combobox2_normal.png);
+	border-top: 1px;
+	border-left: 1px;
+	border-right: 1px;
+	border-bottom: 1px;
+	color: #333333;
+}
+QComboBox:hover:!read-only:!disabled{
+	border-image: url(:/theme/combobox2/combobox2_hover.png);
+}
+QComboBox:focus:!read-only:!disabled{
+	border-image: url(:/theme/combobox2/combobox2_pressed.png);
+}
+QComboBox:disabled{
+	border-image: url(:/theme/combobox2/combobox2_disabled.png);
+	color: #666666;
+}
+QComboBox:!editable{
+	border-image: url(:/theme/combobox2/combobox2_readonly.png);
+	color: #444444;
+}
+QComboBox::drop-down {
+	width: 21px;
+	border-image: url(:/theme/combobox2/combobox2_drop_down_normal.png);
+}
+QComboBox::drop-down:hover {
+	border-image: url(:/theme/combobox2/combobox2_drop_down_hover.png);
+}
+QComboBox::drop-down:pressed {
+	border-image: url(:/theme/combobox2/combobox2_drop_down_pressed.png);
+}
+QComboBox::drop-down:disabled {
+	border-image: url(:/theme/combobox2/combobox2_drop_down_disabled.png);
+}

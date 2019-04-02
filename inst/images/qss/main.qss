@@ -1,0 +1,224 @@
+
+
+/* CToolTip */
+CToolTip {
+	border-image: url(:/images/Icon_98.png);
+	margin-top: 15px;
+	border-top: 1px;
+	border-left: 1px;
+	border-right: 1px;
+	border-bottom: 1px;
+	padding-bottom: 3px;
+}
+
+/* btnMinimize */
+QPushButton#btnMinimize {
+	border: none;
+	min-width:  26px;
+	min-height: 24px;
+	max-width: 26px;
+	max-height: 24px;
+	image: url(:/images/Icon_03.png);
+	background: transparent;
+	border-image: none;
+	padding: 2px;
+}
+QPushButton#btnMinimize:flat {
+	border: none;
+	border-image: none;
+}
+QPushButton#btnMinimize:hover {
+	background: #015ba3;
+	border-image: none;
+}
+QPushButton#btnMinimize:pressed {
+	background: #005496;
+	border-image: none;
+}
+
+/* btnMaximize */
+QPushButton#btnMaximize:!checked {
+	border: none;
+	min-width:  26px;
+	min-height: 24px;
+	max-width: 26px;
+	max-height: 24px;
+	image: url(:/images/Icon_05.png);
+	background: transparent;
+	border-image: none;
+	padding: 2px;
+}
+QPushButton#btnMaximize:!checked:flat {
+	border: none;
+	border-image: none;
+}
+QPushButton#btnMaximize:checked {
+	image: url(:/images/Icon_12.png);
+	background: transparent;
+	border-image: none;
+	padding: 2px;
+}
+QPushButton#btnMaximize:checked:flat {
+	border: none;
+	border-image: none;
+}
+QPushButton#btnMaximize:hover {
+	background: #015ba3;
+	border-image: none;
+}
+QPushButton#btnMaximize:pressed {
+	background: #005496;
+	border-image: none;
+}
+
+/* btnClose */
+QPushButton#btnClose {
+	border: none;
+	min-width:  30px;
+	min-height: 24px;
+	max-width: 30px;
+	max-height: 24px;
+	image: url(:/images/Icon_07.png);
+	background: transparent;
+	border-image: none;
+	padding: 2px;
+}
+QPushButton#btnClose:flat {
+	border: none;
+	border-image: none;
+}
+QPushButton#btnClose:hover {
+	background: #e15524;
+	border-image: none;
+}
+QPushButton#btnClose:pressed {
+	background: #c24b21;
+	border-image: none;
+}
+
+/* btnSetting */
+QPushButton#btnSetting {
+	border: none;
+	min-width:  26px;
+	min-height: 24px;
+	max-width: 26px;
+	max-height: 24px;
+	image: url(:/images/Icon_00.png);
+	background: transparent;
+	border-image: none;
+	padding: 2px;
+}
+QPushButton#btnSetting:flat {
+	border: none;
+	border-image: none;
+}
+QPushButton#btnSetting:hover {
+	background: #015ba3;
+	border-image: none;
+}
+QPushButton#btnSetting:pressed {
+	background: #005496;
+	border-image: none;
+}
+
+/* btnMinimize2 */
+QPushButton#btnMinimize2 {
+	border: none;
+	min-width:  26px;
+	min-height: 24px;
+	max-width: 26px;
+	max-height: 24px;
+	image: url(:/images/Icon_03_2.png);
+	background: transparent;
+	border-image: none;
+	padding: 2px;
+}
+QPushButton#btnMinimize2:flat {
+	border: none;
+	border-image: none;
+}
+QPushButton#btnMinimize2:hover {
+	background: #66a3d4;
+	image: url(:/images/Icon_03.png);
+	border-image: none;
+}
+QPushButton#btnMinimize2:pressed {
+	background: #5d94c0;
+	image: url(:/images/Icon_03.png);
+	border-image: none;
+}
+
+/* btnMaximize2 */
+QPushButton#btnMaximize2:!checked {
+	border: none;
+	min-width:  26px;
+	min-height: 24px;
+	max-width: 26px;
+	max-height: 24px;
+	image: url(:/images/Icon_05_2.png);
+	background: transparent;
+	border-image: none;
+	padding: 2px;
+}
+QPushButton#btnMaximize2:!checked:flat {
+	border: none;
+	border-image: none;
+}
+QPushButton#btnMaximize2:!checked:hover {
+	image: url(:/images/Icon_05.png);
+	background: #66a3d4;
+	border-image: none;
+}
+QPushButton#btnMaximize2:!checked:pressed {
+	image: url(:/images/Icon_05.png);
+	background: #5d94c0;
+	border-image: none;
+}
+QPushButton#btnMaximize2:checked {
+	image: url(:/images/Icon_12_2.png);
+	background: transparent;
+	border-image: none;
+	padding: 2px;
+}
+QPushButton#btnMaximize2:checked:flat {
+	border: none;
+	border-image: none;
+}
+QPushButton#btnMaximize2:checked:hover {
+	image: url(:/images/Icon_12.png);
+	background: #66a3d4;
+	border-image: none;
+}
+QPushButton#btnMaximize2:checked:pressed {
+	image: url(:/images/Icon_12.png);
+	background: #5d94c0;
+	border-image: none;
+}
+
+/* btnClose2 */
+QPushButton#btnClose2 {
+	border: none;
+	min-width:  30px;
+	min-height: 24px;
+	max-width: 30px;
+	max-height: 24px;
+	image: url(:/images/Icon_07_2.png);
+	background: transparent;
+	border-image: none;
+	padding: 2px;
+}
+QPushButton#btnClose2:flat {
+	border: none;
+	border-image: none;
+}
+QPushButton#btnClose2:hover {
+	image: url(:/images/Icon_07.png);
+	background: #e15524;
+	border-image: none;
+}
+QPushButton#btnClose2:pressed {
+	image: url(:/images/Icon_07.png);
+	background: #c24b21;
+	border-image: none;
+}
+

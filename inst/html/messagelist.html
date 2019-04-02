@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" type="text/css" href="qrc:/html/css/messagelist.css">
+
+	<title>messages</title>
+</head>
+
+<body id="msgBody" onresize="onresize()" onload="onload()" style="background-color: rgb(255, 255, 255);">
+	<div style="overflow:none;">
+		<div id="infoBar">
+			<!--
+			<div class="ui-notify ui-notify-info">
+			<span class="ui-notify-close" title="关闭" onclick="closeInfoBar()">*</span>
+			<div id="infoBarContext" class="ui-notify-context">
+				<span class="picSpan">
+					<img src="qrc:/html/test.png" />
+				</span>
+				&nbsp;
+				<span>
+					对方"离线或隐身"，可能无法立即回复，您可以给他（他）
+					<a href="#">发送邮件</a>
+					或者
+					<a href="#">发送离线文件</a>
+				</span>
+			</div>
+			-->
+		</div>
+		<div id="msgContent" style="height:390px;overflow:auto;">
+			<!--
+			<div id="warnBar">
+				<div class="ui-notify ui-notify-warn">
+					<span class="ui-notify-icon">&nbsp;</span>
+					<div class="ui-notify-context">欢迎使用企讯通!</div>
+				</div>
+			</div>
+			-->
+			<div id="moreBar" style="display:none">
+				<div class="ui-notify ui-notify-more" style="background-color: rgb(255, 255, 255);">
+					<div id="moreBarContext" class="ui-notify-context"></div>
+				</div>
+			</div>
+			<div id="chatBox_msgList_3288624276" class="chatBox_msgList"> 
+			</div>
+		</div>
+	</div>
+
+<script type="text/javascript" src="qrc:/html/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="qrc:/html/js/messagelist.js"></script>
+
+</body>
+</html>

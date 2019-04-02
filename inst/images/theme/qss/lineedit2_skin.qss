@@ -1,0 +1,56 @@
+
+/* QLineEdit */
+QLineEdit {
+	padding-right: 2px;
+	padding-left: 2px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	border-image: url(:/theme/lineedit2/lineedit2_normal.png);
+	border-top: 2px;
+	border-left: 2px;
+	border-right: 2px;
+	border-bottom: 2px;
+	color: #333333;
+}
+QLineEdit:!read-only:!disabled:hover {
+	border-image: url(:/theme/lineedit2/lineedit2_hover.png);
+}
+QLineEdit:!read-only:!disabled:focus {
+	border-image: url(:/theme/lineedit2/lineedit2_pressed.png);
+}
+QLineEdit:disabled {
+	border-image: url(:/theme/lineedit2/lineedit2_disabled.png);
+	color: #666666;
+}
+QLineEdit:read-only {
+	border-image: url(:/theme/lineedit2/lineedit2_readonly.png);
+	color: #444444;
+}
+
+/* QTextEdit */
+QTextEdit {
+	padding-right: 2px;
+	padding-left: 2px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	border-image: url(:/theme/lineedit2/lineedit2_normal.png);
+	border-top: 2px;
+	border-left: 2px;
+	border-right: 2px;
+	border-bottom: 2px;
+	color: #333333;
+}
+QTextEdit[readOnly=\"false\"]:!disabled:hover {
+	border-image: url(:/theme/lineedit2/lineedit2_hover.png);
+}
+QTextEdit[readOnly=\"false\"]:!disabled:focus {
+	border-image: url(:/theme/lineedit2/lineedit2_pressed.png);
+}
+QTextEdit:disabled {
+	border-image: url(:/theme/lineedit2/lineedit2_disabled.png);
+	color: #666666;
+}
+QTextEdit[readOnly=\"true\"] {
+	border-image: url(:/theme/lineedit2/lineedit2_readonly.png);
+	color: #444444;
+}

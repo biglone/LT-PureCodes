@@ -1,0 +1,554 @@
+::-webkit-scrollbar {
+	width: 8px;
+}
+
+::-webkit-scrollbar-track-piece:vertical{
+	border-radius: 10px;
+	background-image:url(qrc:/theme/scrollbar/scrollbar_vertical_normal.png);
+	background-color:#ECECEC;
+}
+
+::-webkit-scrollbar-thumb:vertical{
+	border: 3px solid transparent;
+	border-radius: 10px;
+	background-image:url(qrc:/theme/scrollbar/scrollbar_vertical_handle_normal.png);
+	background-color:#CFCFCF;
+}
+
+::-webkit-scrollbar-thumb:vertical:hover {
+	border-radius: 10px;
+	background-image:url(qrc:/theme/scrollbar/scrollbar_vertical_handle_hover.png);
+	background-color:#A0A0A0;
+}
+
+::-webkit-scrollbar-thumb:vertical:active {
+	border-radius: 10px;
+	background-image:url(qrc:/theme/scrollbar/scrollbar_vertical_handle_pressed.png);
+	background-color:#A0A0A0;
+}
+
+::-webkit-scrollbar-button:vertical:start:increment,
+::-webkit-scrollbar-button:vertical:end:decrement{
+	display: none;
+}
+
+::-webkit-scrollbar-button:vertical:start:decrement {
+	background-image: url(qrc:/theme/scrollbar/scrollbar_vertical_subline_normal.png);
+	background-repeat: no-repeat;
+	background-position:center;
+}
+
+::-webkit-scrollbar-button:vertical:start:decrement:hover {
+	background-image: url(qrc:/theme/scrollbar/scrollbar_vertical_subline_hover.png);
+	background-repeat: no-repeat;
+	background-position:center;
+}
+
+::-webkit-scrollbar-button:vertical:start:decrement:active {
+	background-image: url(qrc:/theme/scrollbar/scrollbar_vertical_subline_pressed.png);
+	background-repeat: no-repeat;
+	background-position:center;
+}
+
+::-webkit-scrollbar-button:vertical:end:increment {
+	background-image: url(qrc:/theme/scrollbar/scrollbar_vertical_addline_normal.png);
+	background-repeat: no-repeat;
+	background-position:center;
+}
+
+::-webkit-scrollbar-button:vertical:end:increment:hover {
+	background-image: url(qrc:/theme/scrollbar/scrollbar_vertical_addline_hover.png);
+	background-repeat: no-repeat;
+	background-position:center;
+}
+
+::-webkit-scrollbar-button:vertical:end:decrement:active {
+	background-image: url(qrc:/theme/scrollbar/scrollbar_vertical_addline_pressed.png);
+	background-repeat: no-repeat;
+	background-position:center;
+}
+
+
+body {
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+	height: 100%;
+	background: white;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	line-height: 1.5;
+	font-family: '微软雅黑','宋体';
+	font-size:9pt;
+}
+
+.chatBox_msgList {
+	display: block;
+    top: 0;
+	bottom: 0;
+	margin: 0 auto;
+	width: 100%;
+	overflow: none;
+}
+
+.msgContainer {
+	display:inline-block;
+	border:1px rgb(247, 247, 247) solid;
+	display: block;
+}
+
+.msgContainer_focus {
+	background-color:#DCF6FF;
+	display:inline-block;
+	border:1px #B2D6F0 solid;
+	display: block;
+}
+
+.highlight { 
+	background-color: yellow;
+}
+
+.msgsource {
+	padding-top: 9px;
+}
+
+/******************* 发送消息样式 ********************************/
+.chatBox_myMsg {
+	display: block;
+	margin: 0;
+	padding: 6px 6px 0 6px
+}
+
+.chatBox_myMsg .msgHead {
+	color: #008040;
+	overflow: hidden;
+	zoom: 1
+}
+
+.chatBox_myMsg .msgBody {
+	position: relative;
+	margin: 0 0 0 6px;
+	color: #000;
+	word-wrap: break-word
+}
+
+/* 提示消息样式 */
+.chatBox_infoMsg {
+	display: block;
+	margin: 0;
+	padding: 6px 6px 0 6px
+}
+
+.chatBox_infoMsg .msgHead {
+	color: #888;
+}
+
+.chatBox_infoMsg .msgBody {
+	position: relative;
+	margin: 0 0 0 6px;
+	color: #888;
+	word-wrap: break-word
+}
+
+/* 接收消息样式 */
+.chatBox_buddyMsg {
+	display: block;
+	margin: 0;
+	padding: 6px 6px 0 6px
+}
+
+.chatBox_buddyMsg .msgHead {
+	color: #00f
+}
+
+.chatBox_buddyMsg .msgBody {
+	position: relative;
+	margin: 0 0 0 6px;
+	color: #000;
+	word-wrap: break-word
+}
+
+.bodyContext {
+	font-size: 10pt;
+}
+
+.chatBox_buddyMsg .msgBody .chatLink, .chatBox_myMsg .msgBody .chatLink {
+	font: inherit
+}
+
+.secret {
+	margin: 0 0 0 12px;
+}
+
+.secret > * {
+    margin-left: 6px;
+}
+
+.secret > img {
+	position: relative;
+	top: 4px;
+}
+
+.readtime {
+	color: #f15a29;
+}
+
+
+/* 进度条 */
+.process-bar {
+	width:100px;
+	display:inline-block;
+	*zoom:1;
+}
+
+.pb-wrapper {
+	border:1px solid gray;
+	border-style:solid none;
+	position:relative;
+	background:#cfd0d2;
+}
+
+.pb-container {
+	border:1px solid gray;
+	border-style:none solid;
+	height:12px;
+	position:relative;
+	left:-1px;
+	margin-right:-2px;
+	font:1px/0 arial;
+	padding:1px;
+}
+
+.pb-highlight {
+	position:absolute;
+	left:0;
+	top:0;
+	_top:1px;
+	width:100%;
+	opacity:0.6;
+	filter:alpha(opacity=60);
+	height:6px;
+	background:white;
+	font-size:1px;
+	line-height:0;
+	z-index:1
+}
+
+.pb-text {
+	width:100%;
+	position:absolute;
+	left:0;
+	top:0;
+	text-align:center;
+	font:10px/12px arial;
+}
+
+.pb-value {
+	height:100%;
+	width:0%;
+	background:#19d73d;
+}
+
+.pb-text {
+	color:black;
+	font:10px/12px arial
+}
+
+.skin-green .pb-wrapper {
+	border-color:#666;
+	border-top-color:#628c2d;
+}
+
+.skin-green .pb-container {
+	border-color:#666;
+	border-left-color:#628c2d;
+}
+
+.skin-green .pb-text {
+	color:black 		
+}
+
+/* 提示框 */
+.ui-notify {
+	position: relative;
+	/*
+	border: 1px solid #aaa;
+	*/
+	border: 0px solid #aaa;
+	padding: 8px 12px;
+	color: #333;
+	background: #fff;
+	font-size: 1em;
+	line-height: 1.5em;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	zoom: 1;
+}
+.ui-notify .ui-notify-icon {
+	display:block;
+	width: 16px;
+	height: 16px;
+	float: left;
+	margin-right: .5em;
+	background: url(qrc:/html/images/notify-icon.png) no-repeat top left;
+	text-indent: -99999px;
+}
+.ui-notify-shadow {
+	-webkit-box-shadow: 0px 2px 10px rgba(50, 50, 50, 0.5);
+	-moz-box-shadow: 0px 2px 10px rgba(50, 50, 50, 0.5);
+	box-shadow: 0px 2px 10px rgba(50, 50, 50, 0.5);
+}
+.ui-notify-title {
+	margin-bottom: .4em;
+	font-weight: bold;
+	letter-spacing: 1px;
+}
+.ui-notify-context {
+	font-size: .9em;
+}
+.ui-notify-close {
+	position: absolute;
+	display: inline-block;
+	*display: inline; 
+	zoom:1;
+	right: 7px; top: 7px;
+	background: url("qrc:/html/images/notify-icon.png") no-repeat scroll 0 0;
+	width: 7px;
+	height: 7px;
+	cursor: pointer;
+	text-indent: -99999px;
+}
+.ui-notify-info {
+	background-color: #D3EAF6;
+	border-color: #86A0EF;
+	color: #3a87ad;
+}
+.ui-notify-info .ui-notify-icon{
+	background-position: 0 -123px;
+}
+
+.ui-notify-success {
+	background-color: #F4FFEF;
+	border-color: #4EBF3B;
+	color: #4F9F51;
+}
+.ui-notify-success .ui-notify-icon{
+	background-position: 0 -189px;
+}
+.ui-notify-warn {
+	background-color: #D0E6F2;
+	border-color: #DFD245;
+	color: #4E4E4E;
+}
+.ui-notify-warn .ui-notify-icon{
+	background-position: 0 -255px;
+}
+.ui-notify-error {
+	background-color: #f2dede;
+	border-color: #DF7D7D;
+	color: #b94a48;
+}
+.ui-notify-error .ui-notify-icon{
+	background-position: 0 -57px;
+}
+
+.picSpan{
+	float:left;margin-top:1px; 
+}
+
+.fileFocue{
+	display:inline-block;
+	border:1px black solid;
+}
+
+.img_autodisplay{
+	cursor: pointer;
+}
+
+.face-img{
+	vertical-align: text-bottom;
+}
+
+/******************** 音频播放样式 ******************************/
+.audioplay {
+	width:32px;
+	height:32px;
+	float:left;
+	background:#6CBEFF url(qrc:/html/images/audio_play.png) no-repeat 1px;
+	border:1px solid #6CBEFF;
+	
+}
+
+.audioplay:hover {
+	background:#6CBEFF url(qrc:/html/images/audio_play_pressed.png) no-repeat 1px;
+}
+
+.audioplay:active {
+	background:#6CBEFF url(qrc:/html/images/audio_play_pressed.png) no-repeat 1px;
+}
+
+.audiostop {
+	width:32px;
+	height:32px;
+	float:left;
+	background:#6CBEFF url(qrc:/html/images/audio_stop.png) no-repeat 1px;	
+	border:1px solid #6CBEFF;
+}
+
+.audiostop:hover {
+	background:#6CBEFF url(qrc:/html/images/audio_stop_pressed.png) no-repeat 1px;
+}
+
+.audiostop:active {
+	background:#6CBEFF url(qrc:/html/images/audio_stop_pressed.png) no-repeat 1px;
+}
+
+.audioplayinfo {
+	width:38px;
+	height:32px;
+	line-height:32px;
+	float:left;
+	border:1px solid #ECECEC;
+	padding-left:32px;
+	background:#FFFFFF url(qrc:/html/images/audio.png) no-repeat 8px;
+	color:#666666;
+	font-size:9pt;
+}
+
+.audioplayinginfo{
+	width:38px;
+	height:32px;
+	line-height:32px;
+	float:left;
+	border:1px solid #ECECEC;
+	padding-left:32px;
+	background:#FFFFFF url(qrc:/html/images/audio_playing.gif) no-repeat 8px;
+	color:#666666;
+	font-size:9pt;
+}
+
+.audioplaysecret{
+	position: absolute;
+	left: 112px;
+	top: 2px;
+}
+
+/******************** 附件、进度条样式 ******************************/
+.attachContainer{
+	background-color: #ffffff;
+	border: 1px solid #ececec;
+	height: 55px;
+	width: 340px;
+	margin-top: 5px;
+}
+
+.fileFocueOut{
+	display:inline-block;
+	border:0px;
+}
+
+.progress {
+  width:150px;
+  height: 7px;
+  margin-top:6px;
+  background: #ebebeb;
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
+  border-radius: 3px;
+  float:left;
+}
+
+.progress > span {
+  position: relative;
+  float: left;
+  height: 5px;
+  line-height: 7px;
+  text-align: right;
+  background: #6CBEFF;
+  border-radius: 3px;
+}
+.progress > span > span {
+  padding: 0 8px;
+  font-size: 11px;
+  font-weight: bold;
+  color: #404040;
+  color: rgba(0, 0, 0, 0.7);
+  text-shadow: 0 1px rgba(255, 255, 255, 0.4);
+}
+
+.progress .blue {
+  background: #6CBEFF;
+}
+
+.attacheoperatortip {
+	padding-left:8px;
+	width:100px;
+	float:left;
+	color:#FDAC75;
+	font-weight:bold;
+	font-size:12px;
+	line-height:18px;
+	display:none;
+}
+
+.attacheoperator {
+	float:right;
+}
+
+.startupload{
+	width:20px;
+	height:18px;
+	float:left;
+	background:url(qrc:/html/images/upload.png) no-repeat 1px;
+}
+
+.startupload:hover{
+	background:url(qrc:/html/images/upload_pressed.png) no-repeat 1px;
+}
+
+.startupload:active{
+	background:url(qrc:/html/images/upload_pressed.png) no-repeat 1px;
+}
+
+.stopupload {
+	width:20px;
+	height:18px;
+	float:left;
+	background:url(qrc:/html/images/transfer_cancel.png) no-repeat 1px;
+}
+
+.stopupload:hover {
+	background:url(qrc:/html/images/transfer_cancel_pressed.png) no-repeat 1px;
+}
+
+.stopupload:active {
+	background:url(qrc:/html/images/transfer_cancel_pressed.png) no-repeat 1px;
+}
+
+.startdownload {
+	width:20px;
+	height:18px;
+	float:left;
+	background:url(qrc:/html/images/download.png) no-repeat 1px;
+}
+
+.startdownload:hover {
+	background:url(qrc:/html/images/download_pressed.png) no-repeat 1px;
+}
+
+.startdownload:active {
+	background:url(qrc:/html/images/download_pressed.png) no-repeat 1px;
+}
+
+.stopdownload {
+	width:20px;
+	height:18px;
+	float:left;
+	background:url(qrc:/html/images/transfer_cancel.png) no-repeat 1px;
+}
+
+.stopdownload:hover {
+	background:url(qrc:/html/images/transfer_cancel_pressed.png) no-repeat 1px;
+}
+
+.stopdownload:active {
+	background:url(qrc:/html/images/transfer_cancel_pressed.png) no-repeat 1px;
+}

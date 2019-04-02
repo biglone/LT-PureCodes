@@ -1,0 +1,33 @@
+/* title */
+QLabel#title {
+	font-size: 11pt;
+	color: white;
+}
+
+/* avatarframe */
+QWidget#avatarframe {
+	background: rgb(0, 120, 216);
+}
+
+/* labNickname */
+QLabel#labName {
+	font-size: 11pt;
+	color: white;
+}
+
+/* leditFilter */
+QLineEdit#leditFilter {
+	background: rgb(0, 101, 185);
+	color: rgb(137, 195, 235);
+	border: none;
+	border-image:none;
+}
+
+/* bottomBar */
+/*
+QWidget#bottomBar {
+	background: rgb(204, 233, 247);
+	border: none;
+	border-top: 1px solid rgb(192, 211, 217);
+}
+*/

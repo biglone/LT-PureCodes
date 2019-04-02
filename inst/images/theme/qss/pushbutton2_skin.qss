@@ -1,0 +1,24 @@
+
+/* QPushButton */
+QPushButton{
+		padding-right: 9px;
+		padding-left: 9px;
+		padding-top: 2px;
+		padding-bottom: 2px;
+		border: 1px;
+		border-image: url(:/theme/pushbutton2/pushbutton2_normal.png) 1 stretch;
+		color: #333333;
+}
+QPushButton:hover:!pressed{
+		border-image: url(:/theme/pushbutton2/pushbutton2_hover.png) 1 stretch;
+}
+QPushButton:hover:pressed{
+		border-image: url(:/theme/pushbutton2/pushbutton2_pressed.png) 1 stretch;
+}
+QPushButton:disabled{
+		color: #666666;
+		border-image: url(:/theme/pushbutton2/pushbutton2_disabled.png) 1 stretch;
+}
+QPushButton:focus{
+		padding: -1px;
+}

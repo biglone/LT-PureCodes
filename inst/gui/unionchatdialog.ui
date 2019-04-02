@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>UnionChatDialog</class>
+ <widget class="FramelessDialog" name="UnionChatDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>630</width>
+    <height>482</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>UnionChatDialog</string>
+  </property>
+  <widget class="UnionChatListView" name="listView">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>251</width>
+     <height>471</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStackedWidget" name="stackedWidget">
+   <property name="geometry">
+    <rect>
+     <x>256</x>
+     <y>0</y>
+     <width>351</width>
+     <height>471</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>FramelessDialog</class>
+   <extends>QWidget</extends>
+   <header>framelessdialog.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>UnionChatListView</class>
+   <extends>QListView</extends>
+   <header location="global">unionchatlistview.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

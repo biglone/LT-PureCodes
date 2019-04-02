@@ -1,0 +1,39 @@
+
+/* QDateEdit */
+QDateEdit {
+	padding-top: 2px;
+	padding-left: 2px;
+	padding-right: 2px;
+	padding-bottom: 2px;
+	border-image: url(:/theme/combobox2/combobox2_normal.png);
+	border-top: 1px;
+	border-left: 1px;
+	border-right: 1px;
+	border-bottom: 1px;
+	color: #333333;
+}
+QDateEdit:hover:!disabled{
+	border-image: url(:/theme/combobox2/combobox2_hover.png);
+}
+QDateEdit:focus:!disabled{
+	border-image: url(:/theme/combobox2/combobox2_pressed.png);
+}
+QDateEdit:disabled{
+	border-image: url(:/theme/combobox2/combobox2_disabled.png);
+	color: #666666;
+}
+QDateEdit::drop-down {
+	subcontrol-origin: padding;
+	subcontrol-position: top right;
+	width: 21px;
+	border-image: url(:/theme/combobox2/combobox2_drop_down_normal.png);
+}
+QDateEdit::drop-down:hover {
+	border-image: url(:/theme/combobox2/combobox2_drop_down_hover.png);
+}
+QDateEdit::drop-down:pressed {
+	border-image: url(:/theme/combobox2/combobox2_drop_down_pressed.png);
+}
+QDateEdit::drop-down:disabled {
+	border-image: url(:/theme/combobox2/combobox2_drop_down_disabled.png);
+}
