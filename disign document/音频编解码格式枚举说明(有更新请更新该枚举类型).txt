@@ -1,0 +1,9 @@
+    enum AudioType
+    {
+        AT_INVALID  = -1,       // ·Ç·¨ audio type
+        AT_AMR      = 0,        // "amr"
+        AT_G711_A   = 1,        // "g711.a" G711-A LAW
+        AT_G711_U   = 2,        // "g711.u" G711-U LAW
+        AT_OPUS     = 3,        // "opus"
+        AT_NUM,
+    };

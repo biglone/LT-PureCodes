@@ -1,0 +1,57 @@
+每个user id可以有多个[暂定为9]配置项，从1开始编号，具体意义和格式由各个终端决定，具体用几个，怎么使用都由终端[版本，平台]自行决定
+
+使用个人配置有两种，获取[get]，设置[set]
+
+[get]
+/*
+    获取config信息
+    config节点，type类型为get，可以有多个子节点，最多有9个子节点，分别为conf1，conf2，...，conf9
+*/
+<message type='request' seq='123456' module='MID_CONF'>
+    <config type='get'>
+        <conf1/>
+        <conf2/>
+        <conf9/>
+    </config>
+</message>
+
+/*
+    正常应答
+    对config节点下的所有conf?进行返回
+*/
+<message type='response' seq='123456' module='MID_CONF'>
+    <config type='get'>
+        <conf1>
+            ...
+        </conf1>
+        <conf2>
+            ...
+        </conf2>
+        <conf9>
+            ...
+        </conf9>
+    </config>
+</message>
+
+[set]
+/*
+    设置config信息
+    config节点，type类型为set，可以有多个子节点，最多有9个子节点，分别为conf1，conf2，...，conf9
+*/
+<message type='request' seq='123456' module='MID_CONF'>
+    <config type='set'>
+        <conf1>
+            ...
+        </conf1>
+        <conf9>
+            ...
+        </conf9>
+    </config>
+</message>
+
+/*
+    正常应答
+*/
+<message type='response' seq='123456' module='MID_CONF'>
+    <config type='set'/>
+</message>

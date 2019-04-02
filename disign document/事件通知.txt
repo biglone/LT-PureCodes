@@ -1,0 +1,24 @@
+﻿事件通知信令
+
+<message type='notification' module='base'>
+    <notice event='discuss_change'>
+        <undefined/>
+    </notice>
+</message>
+
+1. 所有事件通知消息均为notification消息，不要求应答
+2. module 为 base
+3. 头层节点名为 notice
+   属性 event 可扩展，需要的时候协商
+4. notice 子节点undefined可选，内容为undefined节点的cdata数据，可扩展，需要的时候协商
+
+
+事件通知通过redis的publish形式通知SG，协议如下
+
+通道为 notice
+消息格式为 id\0event\0undefined
+[二进制字符串，三段式，每个字段为字符串不含'\0'，字段间用'\0'分割，也就是二进制的全0的一个byte]，其中\0undefined可选
+
+id 事件通知接收者id
+event 事件名称
+undefined undefined信令的cdata数据

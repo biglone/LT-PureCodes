@@ -1,0 +1,25 @@
+外部程序调用pm会话说明。
+
+调用代码:
+	
+Intent intent = new Intent("android.intent.action.PMCHAT");
+intent.putExtra("id", 用户名);
+intent.putExtra("type", 会话类型);
+startActivity(intent);
+
+参数说明:
+
+id：如果会话类型是user，那么这个就代表对方的用户名；
+
+    如果会话类型是group，那么这个就代表群组的编号；
+
+    如果是会话类型是discuss，那么这个就代表讨论组的编号。
+
+type：会话类型，有三种类型(user, group, discuss)
+
+例如:
+
+Intent intent = new Intent("android.intent.action.PMCHAT");
+intent.putExtra("id", "laix1");
+intent.putExtra("type", "user");
+startActivity(intent);

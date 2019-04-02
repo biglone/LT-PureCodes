@@ -1,0 +1,26 @@
+一. 讨论组踢人接口
+POST http://ip:port/pmmanage/api/discuss/member/remove
+
+参数：
+discussid：讨论组id
+userid：   被踢的人的用户id
+by：       由谁踢的（必须是讨论组创建者）
+
+返回：
+{
+	"ret": 260005
+	"msg": "踢人成功"
+}
+
+二. 讨论组解散接口
+GET http://ip:port/pmmanage/api/discuss/disband
+
+参数：
+discussid: 讨论组id
+by:        由谁解散的（必须是讨论组创建者）
+
+返回：
+{
+	"ret": 260006
+	"msg": "解散成功"
+}

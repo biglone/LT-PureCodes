@@ -1,0 +1,10 @@
+正式环境端口：28083，测试环境端口：8081
+
+聊天：
+http://58.211.187.150:8081/pmmanage/message/chatpage?self=xucl1&other=xucl2
+
+群组：
+http://58.211.187.150:8081/pmmanage/message/group/chatpage?groupId=2&self=xucl
+
+讨论组：
+http://58.211.187.150:8081/pmmanage/message/discuss/chatpage?discussId=25&self=xucl

@@ -1,0 +1,159 @@
+1. 用户查询
+GET http://host:port/pmmanage/api/pmuser/search
+参数：by=userId&username=张&sex=&phone=&currentPage=1&pageSize=10
+by:当前查询的用户id
+username,phone参数采用模糊匹配
+
+返回：
+{
+    "ret": 280003,
+    "msg": "用户搜索成功",
+    "searchUsername": "张",
+    "searchSex": null,
+    "searchPhone": null,
+    "currentPage": 1,
+    "pageSize": 10,
+    "count": 18,
+    "searchResult": [
+        {
+            "username": "张冰英文名",
+            "userId": "Cindy",
+            "departmentList": [
+                {
+                    "name": "总经理办公室",
+                    "id": "88880001"
+                },
+                {
+                    "name": "总经理办公室",
+                    "id": "test1000"
+                }	
+            ],
+            "sex": null,
+            "cellNumber": null,
+            "os": null
+        },
+	......
+    ]
+}
+
+2. 添加好友操作
+GET http://host:port/pmmanage/api/pmuser/rosteraction/add
+参数：fromId=sung&toId=zhangb&action=request&message=我是孙纲&sessionId=1a2bsc4d-1adsada-asdasd-asdasdasd&group=我的好友
+fromId为发起请求会话方为A端，toId为处理请求方为B端，在同一次请求处理会话中，fromId和toId始终为固定的
+action为枚举类型，"request"为请求添加，"accept"为同意添加，"refuse"为拒绝添加
+message为附加消息，请求时为请求的验证消息，拒绝时为拒绝的理由
+sessionId为客户端生成的加好友session，为一个guid
+
+当 action=accept时，请求需要增加一个group1参数，后台需要将fromId和toId分别加入到对方的roster列表中，具体规则为：对于fromId的roster列表，添加（toId，toName， group），对于toId的roster列表，添加（fromId，fromName，group1），toName和fromName需要后台根据toId和fromId在个人信息表中查询得到。如果操作成功，则返回成功，并向另一方推送通知；如果操作失败，则直接返回失败，不进行推送。客户端接收到成功的返回后，不用再进行和服务端之间对于roster的添加交互，可以直接刷新roster列表或直接在本地进行添加。当action=accept时，成功的返回也需要将group1带下来，方便客户端操作。
+
+
+返回：
+{
+    "ret": 280002,
+    "msg": "好友请求发送成功",
+    "fromId": "xucl",
+    "toId": "zhangb",
+    "action": "request",
+    "message": "你好加好友",
+    "group": "我的好友",
+    "sessionId": "dasdadd-dasda-dasd-dadjlkjdlkshfk"
+    "group1":"研究部组"
+}
+
+通知：userId + /0 + roster_action + /0 + base64(fromId):base64(toId):base64(group):base64(message):sessionId
+
+
+3. 获取好友操作列表
+GET http://host:port/pmmanager/api/pmuser/rosteraction/query
+参数：userId=sung，可带参数sessionId来指定某次会话
+
+暂时返回1个月内的所有操作列表，按照时间的倒序排列，最新的为第一条
+
+返回：
+{
+    "ret": 280001,
+    "msg": "好友请求列表查询成功",
+    "actionList": [
+        {
+            "sessionId": "dasdadd-dasda-dasd-dadjlkjdlkshfk",
+            "createTime": "2014-12-04 11:41:55",
+            "fromId": "xucl",
+            "toId": "zhangb",
+            "message": "加好友",
+            "action": "accept",
+	    "group": "我的好友",
+	    "status": 1
+	    "read": 1
+        },
+        {
+            "sessionId": "dasdadd-dasda-dasd-dadjlkjdlkshfk",
+            "createTime": "2014-12-03 16:04:46",
+            "fromId": "xucl",
+            "toId": "zhangb",
+            "message": "你好加好友",
+            "action": "request",
+            "group": "我的好友",
+	    "status": null,
+	    "read": 1
+        },
+	......
+    ]
+}
+
+4. 好友请求确认
+GET http://host:port/pmmanager/api/pmuser/rosteraction/confirm
+参数：sessionId=dasdadd-dasda-dasd-dadjlkjdlkshfk
+
+确认此session中accept/refuse的action，状态为1
+
+返回：
+{
+    "ret": 280004,
+    "msg": "好友请求确认成功",
+    "sessionId": "dasdadd-dasda-dasd-dadjlkjdlkshfk"
+}
+
+5. 好友请求已读
+GET http://host:port/pmmanage/api/pmuser/rosteraction/read
+参数：sessionId=dasdadd-dasda-dasd-dadjlkjdlkshfk
+
+确认此session中action是否已读，0为未读，1为已读
+
+返回：
+{
+    "ret": 280005,
+    "msg": "好友请求已读",
+    "sessionId": "dasdadd-dasda-dasd-dadjlkjdlkshfk"
+}
+
+6. 好友验证记录删除
+增加通过sessionId来删除记录的操作，客户端应该在UI上进行限制，同时后台也应该判断，只有完成的好友验证记录可以删除，正在进行中的验证记录不可以删除，换句话说只有记录中status已经为1的记录才可以删除。删除好友验证记录对于好友关系没有影响。
+ 
+删除好友验证记录：
+GET http://host:port/pmmanage/api/pmuser/rosteraction/delete
+参数：sessionId=dasdadd-dasda-dasd-dadjlkjdlkshfk
+      by=sung 为当前操作的用户id
+ 
+返回：
+{
+    "ret": 280006,
+    "msg": "好友验证记录删除成功",
+    "sessionId": "dasdadd-dasda-dasd-dadjlkjdlkshfk"
+}
+
+ret 为 281008 表示该条记录不存在。
+
+7. 删除好友
+GET http://host:port/pmmanage/api/pmuser/roster/delete
+参数：fromId=sung&toId=zhangb
+fromId为自己的id，toId为对方的id
+ 
+返回：
+{
+    "ret": 280007,
+    "msg": "好友删除成功"
+}
+ 
+删除成功后也需要向对方推送，以便对方更新roster列表。
+通知：userId + /0 + roster_delete + /0 + base64(fromId):base64(toId) 
+

@@ -1,0 +1,9 @@
+4字节文件版本号，网络序，目前版本号为1
+32字节通讯录版本号（目前为yymmddhh24missff2之类）
+
+user_id\0user_name\0user_id\0user_name\0user_id\0user_name\0user_id\0user_name\0user_id\0user_name\0user_id\0user_name\0\0
+depart_id\0depart_pid\0depart_name\0depart_index\0depart_id\0depart_pid\0depart_name\0depart_index\0depart_id\0depart_pid\0depart_name\0depart_index\0depart_id\0depart_pid\0depart_name\0depart_index\0depart_id\0depart_pid\0depart_name\0depart_index\0depart_id\0depart_pid\0depart_name\0depart_index\0\0
+user_id\0depart_id\0user_index\0user_id\0depart_id\0user_index\0user_id\0depart_id\0user_index\0user_id\0depart_id\0user_index\0user_id\0depart_id\0user_index\0user_id\0depart_id\0user_index\0\0
+
+字段之间由\0分割，表由\0\0结尾。
+如果字段内容为null，即没有值，连一个空格都没有，那么服务器生成一个空格作为其值。现在设计的数据库中不会出现这种情况

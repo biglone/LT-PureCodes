@@ -1,0 +1,20 @@
+psg:*
+map类型
+heartcount|
+在线的psg, psg:后面的是psg的id,形式为ip:port/ip:port,外网地址/内网地址
+
+*:online
+set类型
+登录在某个psg的节点id,1:*为终端,2:*为服务节点[现在终端与服务节点的id不在同一空间,所以需要用标识来区分,现在用1,2来区分]
+
+1:*
+map类型
+heartcount|logintime|online|psg|im_presence|im_show|im_status|im_ttype
+心跳数     登录时间  在线   psg im出席状态  im的show im status im的登录类型[pc,终端]
+在线的终端,1:后面的是终端的id,系统对这个id没有规定,不能规定用户的命名规范
+
+2:*
+map类型
+heartcount|logintim|online|psg
+在线的服务节点,2:后面的是服务节点的id,系统对这个id没有规定,不能规定用户的命名规范
+

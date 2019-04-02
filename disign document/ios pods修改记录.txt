@@ -1,0 +1,134 @@
+1、AFNetworking
+  AFURLResponseSerialization.m
+  
+- (instancetype)init {
+    self = [super init];
+    if (!self) {
+        return nil;
+    }
+
+//    self.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", nil];
+
+    self.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"image/png", @"image/jpeg", nil]; // changed by wangzhe 20160217
+
+    return self;
+}
+
+
+2、CocoaAsyncSocket
+   GCDAsyncSocket.m
+    
+// Found IPv6 address.
+// Wrap the native address structure, and add to results.
+
+// added by wangzhe 20160629
+struct sockaddr_in6 *sockaddr = (struct sockaddr_in6 *)res->ai_addr;
+in_port_t *portPtr = &sockaddr->sin6_port;
+if ((portPtr != NULL) && (*portPtr == 0)) {
+    *portPtr = htons(port);
+}
+
+3、MagicalRecord（暂时这样修改）
+   NSManagedObjectContext+MagicalSaves.m
+   
+- (void) MR_saveWithOptions:(MRSaveOptions)saveOptions completion:(MRSaveCompletionHandler)completion;
+{
+    __block BOOL hasChanges = NO;
+
+    if ([self concurrencyType] == NSConfinementConcurrencyType)
+    {
+        hasChanges = [self hasChanges];
+    }
+    else
+    {
+        [self performBlockAndWait:^{
+            hasChanges = [self hasChanges];
+        }];
+    }
+
+    if (!hasChanges)
+    {
+        MRLogVerbose(@"NO CHANGES IN ** %@ ** CONTEXT - NOT SAVING", [self MR_workingName]);
+
+        if (completion)
+        {
+//            dispatch_async(dispatch_get_main_queue(), ^{
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{ // changed by wangzhe 20160217
+                completion(NO, nil);
+            });
+        }
+
+        return;
+    }
+
+    BOOL shouldSaveParentContexts = ((saveOptions & MRSaveParentContexts) == MRSaveParentContexts);
+    BOOL shouldSaveSynchronously = ((saveOptions & MRSaveSynchronously) == MRSaveSynchronously);
+    BOOL shouldSaveSynchronouslyExceptRoot = ((saveOptions & MRSaveSynchronouslyExceptRootContext) == MRSaveSynchronouslyExceptRootContext);
+
+    BOOL saveSynchronously = (shouldSaveSynchronously && !shouldSaveSynchronouslyExceptRoot) ||
+                             (shouldSaveSynchronouslyExceptRoot && (self != [[self class] MR_rootSavingContext]));
+
+    id saveBlock = ^{
+        MRLogInfo(@"→ Saving %@", [self MR_description]);
+        MRLogVerbose(@"→ Save Parents? %@", shouldSaveParentContexts ? @"YES" : @"NO");
+        MRLogVerbose(@"→ Save Synchronously? %@", saveSynchronously ? @"YES" : @"NO");
+
+        BOOL saveResult = NO;
+        NSError *error = nil;
+
+        @try
+        {
+            saveResult = [self save:&error];
+        }
+        @catch(NSException *exception)
+        {
+            MRLogError(@"Unable to perform save: %@", (id)[exception userInfo] ?: (id)[exception reason]);
+        }
+        @finally
+        {
+            [MagicalRecord handleErrors:error];
+
+            if (saveResult && shouldSaveParentContexts && [self parentContext])
+            {
+                // Add/remove the synchronous save option from the mask if necessary
+                MRSaveOptions modifiedOptions = saveOptions;
+
+                if (saveSynchronously)
+                {
+                    modifiedOptions |= MRSaveSynchronously;
+                }
+                else
+                {
+                    modifiedOptions &= ~MRSaveSynchronously;
+                }
+
+                // If we're saving parent contexts, do so
+                [[self parentContext] MR_saveWithOptions:modifiedOptions completion:completion];
+            }
+            else
+            {
+                if (saveResult)
+                {
+                    MRLogVerbose(@"→ Finished saving: %@", [self MR_description]);
+                }
+
+                if (completion)
+                {
+//                    dispatch_async(dispatch_get_main_queue(), ^{
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{ // changed by wangzhe 20160217
+                        completion(saveResult, error);
+                    });
+                }
+            }
+        }
+    };
+
+    if (saveSynchronously)
+    {
+        [self performBlockAndWait:saveBlock];
+    }
+    else
+    {
+        [self performBlock:saveBlock];
+    }
+}

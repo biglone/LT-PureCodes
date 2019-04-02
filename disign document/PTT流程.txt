@@ -1,0 +1,132 @@
+pscFrom              psg                sptalkX                psg                  pscToX
+
+每一次ptt流程都是一致的,对于某一次ptt流程,现在分别对中间涉及的各个节点进行说明
+
+pscFrom:
+1.ptt的发起者,一次ptt只有一个pscFrom
+2.tcp->sptalkX:talkbegin,这是每一次ptt的开始,发此消息通知sptalkX开始一次ptt,但无需应答
+    [talkid,from,to[list],beginseq,audiodesc...]
+3.udp->sptalkX:audiopacket,发完talkbegin,马上可以发送媒体数据,通过udp直接发送给sptalkX的知名地址
+  [??多个sptalk时,pscFrom如何选择发给哪一个,tcp信令和audiopacket应该发到同一个sptalk才正确吧??]
+    [crc,talkid,seq,beginframe,framecount,framedata...]
+4.tcp->sptalkX:talkend,对于pscFrom来说,需要发送的媒体结束时发送此消息,通知sptalkX话说完了
+    [talkid,endseq...]
+5.tcp<-sptalkX:recvend,此消息由sptalkX返回,通知pscFrom媒体数据接收结束了,此消息必须等待,除非sptalkX不在了
+    [talkid,reason...]
+x.tcp<-sptalkX:resend,(2,5),发生在2和5之间的开区间,sptalkX请求重发某些audiopacket,audiopacket也属于(2,5)
+    [talkid,seq[list]...]
+
+    state:
+    做2
+    做3
+    稍等片刻做4(这样是否有可能降低对方在收到talkend时audiopacket还少最后几个的几率?)
+    发生5时,这次ptt顺利完结
+    如果中间发现sptalkX不在了,这次ptt被迫结束
+    中间如果收到resend,则做3,发送指定audiopacket
+    
+    说明:
+    一次ptt的完结:
+        1.发生5时
+        2.得知sptalkX不在
+
+
+sptalkX:
+1.ptt的服务器,媒体中转站,或者说媒体网关,每一次ptt肯定由一个sptalk来提供服务,提供一个知名udp地址
+2.tcp<-pscFrom:talkbegin,标志一次新的ptt开始
+3.udp<-pscFrom:audiopacket,对应于每一次ptt,都有一个audiopacket序列
+4.tcp<-pscFrom:talkend,表明这次ptt的话说完了
+5.tcp->pscFrom:recvend,通知pscFrom媒体数据接收结束了,该信令必须发送
+    [talkid,reason...]
+x.tcp->pscFrom:resend,(2,5),发生在2和5之间的开区间,请求pscFrom重发某些audiopacket,audiopacket也属于(2,5)
+    [talkid,seq[list]...]
+
+6.tcp->pscToX:talkbegin,通知pscToX开始一次ptt
+    [转发]
+7.udp<-pscToX:recvbegin,pscToX由此告知sptalkX一次ptt媒体数据往何处发,即pscToX在何处接收
+    [crc,talkid,to...]
+8.udp->pscToX:audiopacket,对应于此次ptt,有一个audiopacket序列
+    [转发]
+9.tcp->pscToX:talkend,通知pscToX一次ptt的话说完了
+    [转发]
+a.tcp<-pscToX:recvend,pscToX通知sptalkX一次ptt的媒体数据接收结束了,该信令必须等待,除非pscToX不在了
+    [talkid,reason...]
+y.tcp<-pscToX:resend,(6,a),发生在6和a之间的开区间,pscToX请求重发某些audiopacket,8属于(7,a)
+    [talkid,seq[list]...]
+
+    state:
+    由于2,3发生先后时间不能确定,一次ptt的开始可能是由于2,也可能是由于3
+    发生2时,做6
+    发生3时,保存,如果能做8,就做8
+    发生4时,做9,如果有需要,做x
+    发生7时,如果能做8,就做8
+    发生a时,记录此pscToX结束
+    发生y时,做8,尽可能发送指定audiopacket
+    何时做9?
+        1.发生4时
+        2.得知pscFrom不在
+    何时做x?中间可以伺机做,发生4时有需要就要做
+    何时做5?
+        1.audiopacket收全了
+        2.所有pscToX的recvend都收到了(或者不在了),而等了一段时间audiopacket还没收全
+    中间如果发现pscFrom不在了,那这次ptt整个意外结束
+    
+    说明:
+    一次ptt的完结:
+        1.做5时
+        2.得知pscFrom不在,且所有pscToX的recvend都收到了(或者不在了)
+
+
+pscToX:
+1.ptt的接受者,一次ptt可以有多个pscTo
+2.tcp<-sptalkX:talkbegin,sptalkX告知某个pscFrom发来一次ptt
+3.udp->sptalkX:recvbegin,告知sptalkX,这次ptt媒体数据往我这里发送
+    [crc,talkid,to...]
+4.udp<-sptalkX:audiopacket,对应于这次ptt,有一个audiopacket序列
+5.tcp<-sptalkX:talkend,等待sptalkX告知这次ptt话说完了
+6.tcp->sptalkX:recvend,告知sptalkX这次ptt媒体数据接收结束了,该信令必须发送
+    [talkid,reason...]
+x.tcp->sptalkX:resend,(3,6),发生在3和6之间的开区间,请求sptalkX重发某些audiopacket,4属于(3,6)
+    [talkid,seq[list]...]
+
+    state:
+    发生2
+    做3
+    发生4时,保存
+    发生5时,如有需要,做x
+    何时做x?中间可以伺机做,发生5时有需要就做
+    何时做6?
+        1.audiopacket收全了
+        2.收到talkend,等了一段时间audiopacket还没收全
+    中间如果发现sptalkX不在了,那这次ptt被迫结束
+    
+    说明:
+    一次ptt的完结:
+        1.做6时
+        2.得知sptalkX不在
+
+
+psg:
+1.ptt相关的所有tcp信令,都必须经过psg来转发,pscFrom->sptalkX,sptalkX->pscToX,pscToX->sptalkX,sptalkX->pscFrom都由psg转发
+2.psg转发信令时,应该添加一些接收者关心的信息,这个待讨论???
+
+problem:
+1.多个sptalk存在,pscFrom如何决定使用哪一个?
+    如果pscFrom自己决定使用哪一个,那负载如何均衡?
+    如果psg决定pscFrom使用哪一个,那pscFrom发送talkbegin后,势必等到psg应答告知使用哪个sptalk后才能发送audiopacket
+2.sptalk如何判断psc不在了?(资源订阅)
+3.psc如何判断sptalk不在了?这个跟1也有关联
+4.超时好不好?好像也没有办法,必须有超时这么个东西在
+5.如果audiopacket过于复杂,那势必增加打包,解包困难,如果要把多个包内容解出,并拼成文件,也很困难
+6.如果audio编解码压缩率可变,那一个audiopacket带多个frame,打包,解包问题不大,那解完包后拼成文件还可否行得通,文件格式如何?或者就不做文件?
+
+personal opinion:
+1.设计得灵活,势必实现困难,出错几率增加,或者表达出来的意义跟所要表达的意义有所出入
+    例子:C语言
+2.设计得相对死一点,可能限制增多,但有很多问题还是可以解决的
+    例子:路,如果没有路,那到达目的地可能就走直线,如果有了路,可能必须绕一下才能到达目的地,但一样能走通
+    
+                                                 
+有结论如下:
+1.一个role只有一个session,后来者踢掉原先的
+2.servicediscovery时,只告知psc一条sp的记录,所以,对于psc来说,它仅知道一个sptalk
+  psg可以在任意时间发送一个通知信息,告知psc某类服务请使用另一个sp

@@ -1,0 +1,18 @@
+文件头：
+
+4字节文件头!JSN | 4字节md5密码的长度 | md5密码 | 4字节加密后的内容长度 | RC4加密的内容
+
+RC4加密的秘钥为md5密码
+内容的原始格式为JSON，具体格式如下：
+
+[
+        {
+        "name":"我的联系人",
+        "children":[
+        {"name":"程栋","userId":"chengd"},
+        {"name":"cindy的机构成员9","userId":"oschange9"},
+        {"name":"测试用户1","userId":"test1"},
+        {"name":"测试用户5","userId":"shuser5"},
+        {"name":"陈长春马甲1","userId":"chencc1"}]
+        }
+]

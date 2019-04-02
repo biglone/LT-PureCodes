@@ -1,0 +1,35 @@
+client -> server
+|  6   |  4   |                    45                       |  4   |                 100000                   | 3   |
+ upload   45   1111.8FA8485F-0DD2-421c-9071-D73952454361.jpg 100000                 file data                   end
+
+server -> client
+|  2  |
+  ok 
+
+client -> server
+|   8    |  4   |   4   |  4  |                    45                       |
+ download   4      2222   45   1111.8FA8485F-0DD2-421c-9071-D73952454361.jpg
+
+server -> client
+|   4  |                      100000                       | 3 |
+ 100000                      file data                      end
+
+
+client -> server
+|   7    |  4    |  4    |  4    |                  45                         |  4   |
+ dl_from    4      2222     45    1111.8FA8485F-0DD2-421c-9071-D73952454361.jpg 12345
+
+server -> client
+|  4   |                100000-12345                       | 3 |
+ 100000              file date from 12345                   end
+ 
+ 所有的tcp连接都由客户端来断开,服务器端会进行超时判断,大概在60s,如果60s客户端没有数据,则断开tcp
+ 一条tcp上可以进行多次交互,只要每次都是完整的,否则服务器端一检测出信令错误,立马就断开tcp
+ 
+ 文件名格式如下:
+ xxxxx.yyyyy.zzz
+ 用户名
+ guid
+ 后缀名
+ 
+ 其中guid不作特殊规定,中间分隔符可用可不用,但是不能用不合文件名的字符以及.

@@ -1,0 +1,50 @@
+1.窗口抖动消息
+
+ext类型为shake，ext不带其它参数。
+
+<message seq="2014-05-28 10:03:08 51" type="request" module="MID_IM">
+  <message type="chat" to="sung2" time="2014-05-28 10:02:51">
+    <ext type="shake"/>
+  </message>
+</message>
+
+
+
+2.分享消息
+
+ext类型为share，shareurl的属性为分享的链接地址，在终端会使用这个地址显示“分享来自：shareurl”。
+
+<message type="notification" module="MID_IM">
+  <message type="chat" to="sung2" time="2014-05-28 08:59:39">
+    <ext type="share" shareurl="http://www.baidu.com"/>
+    <subject/>
+    <body font="楷体,#aa5500,14">这是一条分享消息</body>
+  </message>
+</message>
+
+
+3. 群组@消息
+
+ext类型为at；
+at参数为@的人员id，多个id使用逗号分隔，与@消息体中@出现的顺序相对应。如果为有效@，则需要带上@人员的id，
+并且后面加base64的@名字，中间用冒号:分隔。如果不是一个有效的@，则可以加上空格或者留空
+（注意下面例子中消息，“@孙纲马甲1”和“@孙纲马甲2”都是有效的@，所以at参数中包含了sung1和sung2两个id，第三个“@了两个人”为无效的@，所以在sung2后面加了逗号留了空）；
+atid为这次@的唯一id，使用这个atid的目的是终端能够在聊天页面中迅速定位到该条@消息。
+
+<message to="liuyl1" module="MID_IM" type="notification" from="im:spim_82_1/">
+  <message timestamp="00000000001489991449218256936" id="23001" type="discuss" seq="20170320143052_18" from="liuyl1/computer" time="2017-03-20 14:30:49">
+    <ext at="sung1:5a2Z57qy6ams55SyMQ==,sung2:5a2Z57qy6ams55SyMg==," atid="ee5f1de9-b812-4561-9e45-6f6c41386179" type="at"/>
+    <subject/>
+    <body encrypt="0" font="宋体,#ff007f,10">@孙纲马甲1 @孙纲马甲2 这是一条at消息，@了两个人</body>
+  </message>
+</message>
+
+at全体成员（@全体成员）时，全体成员id（虚拟id）统一为：“All_Members_Id”，中文状态下名字为：“全体成员”，英文状态下名字为：“All”（领语存在中英文切换问题）。
+
+<message to="liuyl1" module="MID_IM" type="notification" from="im:spim_82_1/">
+  <message timestamp="00000000001489990876900256933" id="22961" type="discuss" seq="20170320142120_11" from="liuyl1/computer" time="2017-03-20 14:21:16">
+    <ext at="All_Members_Id:5YWo5L2T5oiQ5ZGY" atid="97d3ddf8-22fe-44bd-890b-a597419b09f2" type="at"/>
+    <subject/>
+    <body encrypt="0" font="宋体,#ff007f,10">@全体成员 </body>
+  </message>
+</message>

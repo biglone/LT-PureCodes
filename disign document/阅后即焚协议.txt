@@ -1,0 +1,74 @@
+一. 阅后即焚消息的发送
+ 
+发送阅后即焚消息 ext的type为"secret"。
+ 
+<message seq="1" type="request" module="MID_IM">
+  <message type="chat" to="laix" time="2015-08-14 17:01:19">
+    <subject/>
+    <body font="微软雅黑,#550000,12">吴秀喜欢李易峰，阅后即焚！！！</body>
+    <ext type="secret"/>
+  </message>
+</message>
+ 
+对于发送方来说，发送成功后，会有一个timestamp返回，将此timestamp作为该条阅后即焚消息的标识。
+ 
+<message seq="1" from="spim_8811_1" type="response" to="sung" module="MID_IM">
+  <message timestamp="00000000001439775313915046121"/>
+</message>
+ 
+同样，对于接收方来说，收到的消息也会有timestamp属性，因此，他和发送方一样对于此条阅后即焚具有相同的标识。
+ 
+<message from="spim_8811_2" type="notification" to="laix" module="MID_IM">
+  <message seq="1" from="sung" type="chat" timestamp="00000000001439775313915046121" to="laix" time="2015-08-14 17:01:19">
+    <subject/>
+    <body font="微软雅黑,#550000,12">吴秀喜欢李易峰，阅后即焚！！！</body>
+    <ext type="secret"/>
+  </message>
+</message>
+ 
+ 
+ 
+二. 查看阅后即焚消息
+ 
+对于文本和图片的阅后即焚消息，接收方点击查看后即向发送方发送已读回执，同时自己开始计时进行销毁，计时时间根据消息长短计算。
+对于语音的阅后即焚消息，接收方点击播放后即向发送方发送已读回执，同时自己在播放完成或者暂停后计时10秒销毁。
+当发送方收到已读回执时，即把具有相同ts的消息置为已销毁状态。
+
+发送已读回执：
+POST http://ip:port/pmmanage/api/message/readlog/add
+fromUid=laix&toUid=sung&ts=00000000001439775313915046121
+
+返回：
+{"ret":0,"msg":""}
+服务端收到已读信令后不需要在服务端将该secret消息删除，服务端仍旧保存该记录。
+
+同时已读回执发送成功后，web端需要向发送方和接收方分别发送推送：
+向发送方sung发送的推送：
+<message type="notification" module="base">
+  <notice event="secret_ack">
+    <undefined>00000000001439775313915046121:laix</undefined>
+  </notice>
+</message>
+
+向接收方laix发送的推送：
+<message type="notification" module="base">
+  <notice event="secret_acked">
+    <undefined>00000000001439775313915046121:sung</undefined>
+  </notice>
+</message>
+
+
+
+三. 查看阅后即焚消息是否已读
+当发送方离线时，接收方查看的阅后即焚消息，发送方不能收到已读的推送，所以发送方需要查看阅后即焚消息是否已被读过的接口来判断。
+
+GET http://ip:port/pmmanage/api/message/readlog/get?ts=00000000001439775313915046121&fromUid=laix
+
+返回：
+未读：{"ret":0,"msg":"","data":null}
+已读：{"ret":0,"msg":"","data":{ts:"00000000001439775313915046121", fromUid:"laix"}}
+ 
+ 
+ 
+四. 漫游消息处理
+在获取漫游消息的消息记录时，需要把 <ext/>节点type="secret"的阅后即焚消息给过滤掉，即漫游消息中不能查看阅后即焚消息。

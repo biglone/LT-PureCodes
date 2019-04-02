@@ -1,0 +1,623 @@
+
+1. 获取用户关注的订阅号列表
+	
+	访问地址：
+		http://ip:port/pmmanage/api/subscription/query/{userid}
+
+	请求方式：
+		GET/POST
+		
+	请求参数说明：
+		userid:用户标识
+	
+	返回数据说明：
+		
+		ret: 结果代码
+		msg: 结果说明
+		
+		id:订阅号标识
+		num:订阅号号码
+		name：订阅号的名称
+		type:订阅号类型(1、订阅号)
+		logo:订阅号头像地址
+		introduction:订阅号简介
+		special:特殊类型（0、正常， 1、不可以关注和取消关注）
+	
+	返回数据结构示例：
+		{
+			"ret": 0,
+			"msg": "",
+			"datas": [
+				{
+					"name": "企讯通订阅号",
+					"id": 1,
+					"type": 1,
+					"logo": "http://58.211.187.150:8081/download//subscription/cut/20150413165212_131.png",
+					"num": "PM_SUBSCRIPTION",
+					"special": 0,
+					"introduction": "企讯通订阅号"
+				}
+			]
+		}
+
+
+2. 根据关键字查询订阅号	
+	
+	访问地址：
+		http://ip:port/pmmanage/api/subscription/query
+		
+	请求方式：
+		POST
+		
+	请求参数说明：
+		keyword：关键字（必填）
+		currentPage：查询页码（选填,默认页码：1）
+		pageSize：每页数据量（选填,默认数量：10）
+		
+	返回数据说明：	
+	
+		ret: 结果代码
+		msg: 结果说明
+		
+		pageSize：每页数据量
+		currentPage：当前页码
+		rowCount：数据总量
+		totalPage：总页数
+		
+		id:订阅号标识
+		num:订阅号号码
+		name：订阅号的名称
+		type:订阅号类型(1、订阅号)
+		logo:订阅号头像地址
+		introduction:订阅号简介
+		
+	返回数据结构示例：
+		{
+			"ret": 0,
+			"msg": "",
+			"datas": {
+				"pagination": {
+					"pageSize": 10,
+					"currentPage": 1,
+					"rowCount": 2,
+					"totalPage": 1
+				},
+				"datas": [
+					{
+						"name": "企讯通订阅号",
+						"id": 1,
+						"type": 1,
+						"logo": "http://58.211.187.150:8081/download//subscription/cut/20150413165212_131.png",
+						"num": "PM_SUBSCRIPTION",
+						"introduction": "企讯通订阅号"
+					},
+					{
+						"name": "测试订阅号",
+						"id": 21,
+						"type": 1,
+						"logo": "static/img/developer/avatar_developer.png",
+						"num": "baby",
+						"introduction": "这是一个测试帐号"
+					}
+				]
+			}
+		}
+		
+
+3. 发送的文本消息
+	
+	访问地址：
+		http://ip:port/pmmanage/api/subscription/text/send
+		
+	请求方式：
+		POST
+		
+	请求参数说明：
+		msgId:客户端消息标识（必填，客户端生成）
+		userId：用户标识（必填）
+		subscriptionId：订阅号标识（必填）
+		content：消息内容（必填）
+		createTime：创建时间（必填，客户端时间，时间格式：yyyy-MM-dd HH:mm:ss）
+		
+	返回数据说明：	
+		
+		ret: 结果代码
+		msg: 结果说明
+		
+		id:消息内部标识
+		msgId:服务器返回消息标识
+		userId：用户标识
+		subscriptionId：订阅号标识
+		type:消息类型
+		content：消息内容
+		createTime：创建时间
+		
+	返回数据结构示例：
+		{
+			"ret": 0,
+			"msg": "",
+			"datas": {
+				"id": 609,
+				"type": 1,
+				"content": "你好！1",
+				"userId": "xucl",
+				"subscriptionId": 1,
+				"msgId": "AUTO_HPWQKKmGNAwTaHqIZpEvyEgleoauXqlfEl67bvCjV2LM4Ku1ZblUGcLEa32",
+				"createTime": "2015-05-13 13:42:32"
+			}
+		}
+
+
+4. 获取订阅号详情
+	
+	访问地址：
+		http://ip:port/pmmanage/api/subscription/detail/{id}
+		
+		
+	请求方式：
+		GET/POST	
+		
+	请求参数说明：
+		id:订阅号标识
+		
+		
+	返回数据说明：	
+	
+		ret: 结果代码
+		msg: 结果说明
+		
+		id:订阅号标识
+		num:订阅号号码
+		name：订阅号的名称
+		type:订阅号类型
+		logo:订阅号头像地址
+		introduction：订阅号简介
+		special:特殊类型（0、正常， 1、不可以关注和取消关注）
+		
+	返回数据结构示例：
+		{
+			"ret": 0,
+			"msg": "",
+			"datas": {
+				"name": "企讯通订阅号",
+				"id": 1,
+				"type": 1,
+				"logo": "http://58.211.187.150:8081/download//subscription/cut/20150413165212_131.png",
+				"num": "PM_SUBSCRIPTION",
+				"special": 0,
+				"introduction": "企讯通订阅号"
+			}
+		}
+		
+		
+5. 关注订阅号	
+		
+	访问地址：
+		http://ip:port/pmmanage/api/subscription/subscribe
+		
+		
+	请求方式：
+		POST	
+		
+	请求参数说明：
+		subscriptionId:订阅号标识（必填）
+		userId:用户标识（必填）
+		createTime:关注时间（必填）
+		
+	返回数据说明：	
+		
+		id:消息内部标识
+		msgId:服务器返回消息标识
+		userId：用户标识
+		subscriptionId：订阅号标识
+		type:消息类型
+		content：消息内容
+		createTime：创建时间
+		
+	返回数据结构示例：
+		{
+			"ret": 0,
+			"msg": "",
+			"datas": {
+				"id": 610,
+				"type": 1,
+				"content": "111111",
+				"userId": "xucl",
+				"subscriptionId": 1,
+				"msgId": "AUTO_KCKvKvbneBbddfkBguDyGZoXisvsVNbvX9CvLosh7YeAIoznWZwF2FSAnoL",
+				"createTime": "2015-05-13 13:45:38"
+			}
+		}
+		
+6. 不再关注订阅号	
+		
+	访问地址：
+		http://ip:port/pmmanage/api/subscription/unsubscribe
+		
+		
+	请求方式：
+		POST	
+		
+	请求参数说明：
+		subscriptionId:订阅号标识（必填）
+		userId:用户标识（必填）
+		createTime:关注时间（必填）
+		
+	返回数据结构示例：
+		{
+			"ret": 0,
+			"msg": ""
+		}
+		 		
+		
+7. 上报获取消息的状态	
+		
+	访问地址：
+		http://ip:port/pmmanage/api/subscription/user/report
+		
+		
+	请求方式：
+		POST	
+		
+	请求参数说明：
+		userId:用户标识（必填）
+		sequence:上报的消息标识(必填)
+		
+	返回数据结构示例：
+		{
+			"ret": 0,
+			"msg": ""
+		}	
+		
+
+8. 获取订阅号推送的消息数量
+			
+	访问地址：
+		http://ip:port/pmmanage/api/subscription/message/number
+		
+		
+	请求方式：
+		POST	
+		
+	请求参数说明：
+		userId:用户标识（必填）
+		from:开始的消息序列（选填）
+		to:结束的消息序列（选填）
+		
+	返回数据结构示例：
+		{
+			"ret": 0,
+			"msg": "",
+			"datas": {
+				"1": 12
+			}
+		}			
+	
+9. 获取订阅号推送的消息
+
+	访问地址：
+		http://ip:port/pmmanage/api/subscription/messages
+		
+		
+	请求方式：
+		POST	
+		
+	请求参数说明：
+		userId:用户标识（必填）
+		subscriptionId:订阅号标识（必填）
+		from:开始的消息序列（选填， 默认0）
+		to:结束的消息序列(选填)
+		count：数量（选填，默认10）
+
+	按照时间顺序往前取，则指定to和count参数，取to往前的count条。如果to没指定，则获取最新的count条。
+	按照时间顺序往后取，则指定from和count参数，取from往后的count条。如果from指定为0，则获取最早的count条。 
+	
+	返回数据说明：	
+		
+		id:消息内部标识
+		msgId:服务器返回消息标识
+		userId：用户标识
+		subscriptionId：订阅号标识
+		type:消息类型, 1-文本消息， 2-图文消息， 3-图片消息， 4-附件消息
+		createTime：创建时间
+		content：消息内容。
+		
+			图文消息字段说明；
+				
+				id：图文消息标识
+				key: 图文消息键,
+				url: 原文连接,
+				title: 标题
+				author: 作者
+				summary: 摘要
+				body:正文
+				subscriptionId: 订阅号标识,
+				picUrl: 图片地址
+				indbTime: 创建时间
+			
+			图片消息字段说明
+				
+				name：图片的名称
+				key：图片资源的键
+				id:图片资源标识
+				url：图片资源访问地址
+				subscriptionId：订阅号标识
+				indbTime：创建时间
+				width：图片的宽度，如果没有宽度数据则为0
+				height：图片的高度，如果没有高度数据则为0				
+
+				
+			附件消息字段说明
+				
+				name：图片的名称
+				key：图片资源的键
+				id:图片资源标识
+				url：图片资源访问地址
+				subscriptionId：订阅号标识
+				indbTime：创建时间
+		
+		
+	返回数据结构示例：
+		{
+			"ret": 0,
+			"msg": "",
+			"datas": [
+				{
+					"id": 441,
+					"state": 1,
+					"type": 1,
+					"content": "20150421 0907",
+					"userId": "xucl",
+					"subscriptionId": 1,
+					"msgId": "101",
+					"createTime": "2015-04-20 09:20:36",
+					"indbTime": "2015-04-21 09:20:36"
+				},
+				{
+					"id": 442,
+					"state": 1,
+					"type": 1,
+					"content": "20150421 0912",
+					"userId": "xucl",
+					"subscriptionId": 1,
+					"msgId": "102",
+					"createTime": "2015-04-20 09:22:05",
+					"indbTime": "2015-04-21 09:22:05"
+				},
+				{
+					"id": 590,
+					"state": 1,
+					"type": 2,
+					"content": [
+						{
+							"key": "7c1OaNpECedx1yBhkwwuehIAkpm1mljb",
+							"id": 141,
+							"url": null,
+							"subscriptionId": 1,
+							"picUrl": "http://localhost:8080/abc//appmsg/cover/20150527140029_190.jpg",
+							"indbTime": "2015-05-27 14:13",
+							"title": "智利总统“陪同”李克强一整天",
+							"author": "徐春良",
+							"summary": "当李克强走入位于智利圣地亚哥的联合国拉美经委会大楼，准备应邀作演讲时，按照事先拟定的名单，陪同总理的应该是智利外长穆尼奥斯。"
+							"body": "hello"
+						},
+						{
+							"key": "7c1OaNpECedx1yBhkwwuehIAkpm1mljb",
+							"id": 142,
+							"url": null,
+							"subscriptionId": 1,
+							"picUrl": "http://localhost:8080/abc//appmsg/cover/20150527140321_184.jpg",
+							"indbTime": "2015-05-27 14:13",
+							"title": "股价飙8倍！范冰冰做股东身家增长2.3亿",
+							"author": "徐春良",
+							"summary": "证券日报5月27日报道(本报见习记者 陈妍妍)“武媚娘公司”唐德影视的上市，堪称资本市场的狂欢。",
+							"body": "hello"
+							
+						}
+					],
+					"userId": "xucl",
+					"subscriptionId": 1,
+					"msgId": "141",
+					"createTime": "2015-05-12 16:41:00",
+					"indbTime": "2015-05-12 16:41:00"
+				}
+			]
+		}
+
+10. 获取订阅号菜单
+	
+	访问地址：
+		http://ip:port/pmmanage/api/subscription/menu/{subscriptionId}
+		
+		
+	请求方式：
+		GET/POST	
+		
+	请求参数说明：
+		subscriptionId:订阅号标识（必填）
+	
+	返回数据说明：	
+		
+		name：菜单项名称
+		key: 菜单项键，菜单类型为点击菜单时，则需要上报该 KEY, 确定点击的菜单
+		id: 菜单项主键
+		type: 菜单类型， text:不做任何操作， click, media:请求点击菜单数据， view:跳转指定的 url
+		subscriptionId: 订阅号标识,
+		menuItems: 子菜单数组，一级菜单含有子菜单，二级菜单不含子菜单
+		mOrder：菜单项顺序
+				
+	返回数据结构示例：
+		
+		{
+			"ret": 0,
+			"datas": {
+			"items": [
+				{
+					"name": "路况",
+					"key": "oGi4CLE3h7I0",
+					"id": 41,
+					"type": "text",
+					"url": null,
+					"subscriptionId": 1,
+					"menuItems": [
+						{
+							"name": "百度路况",
+							"key": "PxxwDhOKJcws",
+							"id": 63,
+							"type": "click",
+							"url": null,
+							"subscriptionId": 1,
+							"menuItems": [ ],
+							"mOrder": 2
+						},
+						{
+							"name": "实时路况",
+							"key": "wvpOtdqpuwt1",
+							"id": 62,
+							"type": "click",
+							"url": null,
+							"subscriptionId": 1,
+							"menuItems": [ ],
+							"mOrder": 3
+						},
+						{
+							"name": "事故理赔网点",
+							"key": "Dmyy7393G9xD",
+							"id": 65,
+							"type": "click",
+							"url": null,
+							"subscriptionId": 1,
+							"menuItems": [ ],
+							"mOrder": 4
+						}
+					],
+					"mOrder": 1
+				},
+				{
+					"name": "服务",
+					"key": "phIPlkKI5EJ6",
+					"id": 33,
+					"type": "text",
+					"url": null,
+					"subscriptionId": 1,
+					"menuItems": [
+						{
+							"name": "test",
+							"key": "3333yA4g5b60",
+							"id": 141,
+							"type": "click",
+							"url": null,
+							"subscriptionId": 1,
+							"menuItems": [ ],
+							"mOrder": 6
+						},
+						{
+							"name": "车辆援救",
+							"key": "LaJoGsFpsIDC",
+							"id": 66,
+							"type": "click",
+							"url": null,
+							"subscriptionId": 1,
+							"menuItems": [ ],
+							"mOrder": 7
+						},
+						{
+							"name": "非现场处罚点",
+							"key": "BrNrIwJh9b1I",
+							"id": 64,
+							"type": "click",
+							"url": null,
+							"subscriptionId": 1,
+							"menuItems": [ ],
+							"mOrder": 8
+						}
+					],
+					"mOrder": 5
+				}
+			]
+		}
+	
+11. 获取菜单项的点击结果
+	
+	访问地址：
+		http://ip:port/pmmanage/api/subscription/menu/click
+		
+		
+	请求方式：
+		POST	
+		
+	请求参数说明：
+		subscriptionId订阅号标识（必填）
+		userId:用户标识
+		key:菜单项的键
+	
+	返回数据说明：	
+		
+		id:消息内部标识
+		msgId:服务器返回消息标识
+		userId：用户标识
+		subscriptionId：订阅号标识
+		type:消息类型, 1-文本消息， 2-图文消息， 3-图片消息
+		createTime：创建时间
+		content：消息内容。
+		
+			图文消息字段说明；
+				
+				id：图文消息标识
+				key: 图文消息键,
+				url: 原文连接,
+				title: 标题
+				author: 作者
+				summary: 摘要
+				body:正文
+				subscriptionId: 订阅号标识,
+				picUrl: 图片地址
+				indbTime: 创建时间 
+			
+			图片消息字段说明
+				
+				name：图片的名称
+				key：图片资源的键
+				id:图片资源标识
+				url：图片资源访问地址
+				subscriptionId：订阅号标识
+				indbTime：创建时间
+				
+				
+	返回数据结构示例：		
+		{
+			"ret": 0,
+			"datas": {
+				"id": 1200861,
+				"state": 0,
+				"type": 3,
+				"content": {
+					"name": "207146FD151B.jpg",
+					"key": "2PCgGzalabyI31w2hPOJsaIKE7b3m7mwO4hGrMm2KK4Mvr9bEM8goFsMt7yg7jqk",
+					"id": 188,
+					"url": "20150610112006_804.jpg",
+					"subscriptionId": 1,
+					"indbTime": "2015-06-10 11:30:48"
+				},
+				"userId": "xucl",
+				"subscriptionId": 1,
+				"msgId": "AUTO_iNwtaONXHM4dPF3dcOBPAfY8YmFdjyoVUawyqNmSR29X0FTz0kmExxtwUTN",
+				"createTime": "2015-06-26 10:44:36",
+				"indbTime": null,
+				"direction": 2
+			}
+		}
+		
+		
+12 获取订阅号图文消息页面
+
+	访问地址：
+		http://58.211.187.150:8081/pmmanage/api/subscription/material/article/detail
+		
+	请求方式：
+		GET/POST	
+		
+	请求参数说明：
+		id: 图文标识，对应于图文内容的id
+		subscriptionId: 订阅号标识
+		messageId: 这条消息的id，对应于消息的Id属性，而不是消息的msgId属性

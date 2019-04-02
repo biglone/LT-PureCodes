@@ -1,0 +1,20 @@
+问题描述: 海关有类似需求,关员使用移动终端(Android 平台 psc),领导使用PC程序(windows 平台 psc)
+          关员发现有需要请示领导的时候,需要把现场视频实时发送给领导,这个时候,关员在界面上进行某个操作,请求领导进行指导工作.
+          领导界面出现对话框,同意/不同意,如果同意,则能看到关员视频(关员看不到领导视频),并同时有音频双向通信;如果不同意,则,暂时不管
+
+原则: 不破坏原先video的流程
+
+实现方式: android 发送一条 notification 信令给指定的PC程序,暂时固定一个id,内容包含一个videoid(guid),由android产生,PC端如果同意,则进入
+          正常的video流程,只是start信令中的id使用这个收到的videoid. android端收到这个携带自己videoid的信令时,不用再提示用户是否同意,
+          直接到视频采集界面.如果本身已经在视频界面,则使用类似toast的信息提示接通一路视频,音频
+
+信令: android 终端发出
+      <message type='notification' module='MID_VIDEO' to='000000'>
+	      <request id='guid'/>
+      </message>
+      
+      PSC转发(PC接收到)
+      <message type='notification' module='MID_VIDEO' to='000000' from='111111'>
+	      <request id='guid'/>
+      </message>
+

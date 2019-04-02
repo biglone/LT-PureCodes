@@ -1,0 +1,85 @@
+sp讨论组
+
+1.创建讨论组
+2.加人
+3.退出
+4.同步
+5.下发
+
+/*
+    创建讨论组
+*/
+<message type='request' seq='123458' module='MID_DISCUSS'>
+    <discuss type='create' name='讨论组X'/>
+</message>
+
+<message type='response' seq='123458' module='MID_DISCUSS'>
+    <discuss type='create' id='1'/>
+</message>
+
+/*
+    加人，注意加上时间
+*/
+<message type='request' seq='1234567' module='MID_DISCUSS'>
+    <discuss type='add' id='1'>
+        <item id='1111'/>
+        <item id='2222'/>
+        <item id='3333'/>
+        <item id='4444'/>
+    </discuss>
+</message>
+
+<message type='response' seq='1234567' module='MID_DISCUSS'>
+    <discuss type='add' id='1'/>
+</message>
+
+/*
+    退出
+*/
+<message type='request' seq='2345678' module='MID_DISCUSS'>
+    <discuss type='quit' id='1'>
+        <item id='1111'/>
+    </discuss>
+</message>
+
+<message type='response' seq='2345678' module='MID_DISCUSS'>
+    <discuss type='quit' id='1'/>
+</message>
+
+/*
+    同步
+*/
+<message type='request' seq='345678' module='MID_DISCUSS'>
+    <discuss type='sync'/>
+</message>
+
+<message type='response' seq='345678' module='MID_DISCUSS'>
+    <discuss type='sync'>
+        <item id='1' name='讨论组X' creator='1111' time='yyyy-mm-dd hi24:mi:ss'/>
+        <item id='2' name='讨论组Y' creator='1111' time='yyyy-mm-dd hi24:mi:ss'/>
+        <item id='3' name='讨论组Z' creator='2222' time='yyyy-mm-dd hi24:mi:ss'/>
+    </discuss>
+</message>
+
+<message type='request' seq='4567890' module='MID_DISCUSS'>
+    <discuss type='sync' id='1'/>
+</message>
+
+<message type='response' seq='4567890' module='MID_DISCUSS'>
+    <discuss type='sync' id='1'>
+        <item id='1111' name='xxx' added='1111' time='yyyy-mm-dd hi24:mi:ss'/>
+        <item id='2222' name='xxx' added='1111' time='yyyy-mm-dd hi24:mi:ss'/>
+        <item id='3333' name='xxx' added='1111' time='yyyy-mm-dd hi24:mi:ss'/>
+    </discuss>
+</message>
+
+/*
+    下发
+*/
+<message type='notification' seq='67890' module=''MID_DISCUSS>
+    <discuss id='1' name='讨论组X' creator='1111' time='yyyy-mm-dd hi24:mi:ss'>
+        <item id='1111' name='xxx' added='1111' time='yyyy-mm-dd hi24:mi:ss'/>
+        <item id='2222' name='xxx' added='1111' time='yyyy-mm-dd hi24:mi:ss'/>
+        <item id='3333' name='xxx' added='1111' time='yyyy-mm-dd hi24:mi:ss'/>
+    </discuss>
+</message>

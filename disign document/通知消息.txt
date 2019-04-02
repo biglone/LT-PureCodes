@@ -1,0 +1,43 @@
+
+1.消息数量
+
+访问地址：
+	例：http://58.211.187.150:8081/pmmanage/pmnotice/stat?jsrId=xucl
+
+返回消息：
+
+	参数不正确：
+		<root>
+			<ret>231003</ret>
+			<msg>通知消息接收人不能为空</msg>
+		</root>
+
+	无数据：
+		<root/>
+	
+	有数据：
+		<root>
+			<notice>
+			<msType>20</msType>
+			<count>2</count>
+			</notice>
+			<notice>
+			<msType>10</msType>
+			<count>9</count>
+			</notice>
+			<notice>
+			<msType>30</msType>
+			<count>1</count>
+			</notice>
+		</root>
+		
+
+noticeClient.onNoticeRead(msType, readCount)
+msType：    已读的消息类型
+readCount： 本次读了多少条
+
+
+2. 通知消息页面
+
+访问地址：
+	例：http://58.211.187.150:8081/pmmanage/pmnotice/noticepage?jsrId=chencc

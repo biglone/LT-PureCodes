@@ -1,0 +1,40 @@
+黑名单是PM的一个轻量级功能，没有专门设计的协议，使用个人配置实现。
+
+一. 获取黑名单
+<message seq="20151127150317_66" type="request" module="MID_CONF">
+  <config type="get">
+    <conf2/>
+  </config>
+</message>
+
+<message seq="20151127150317_66" from="conf:spconf_82_1/" type="response" to="linj/computer" module="MID_CONF">
+  <config type="get">
+    <conf2>
+      <ids>sung1,sung2</ids>
+    </conf2>
+  </config>
+</message>
+
+二. 设置黑名单
+<message seq="20151127165936_69" type="request" module="MID_CONF">
+  <config type="set">
+    <conf2>
+      <ids>sung1,sung2,liua</ids>
+    </conf2>
+  </config>
+</message>
+
+<message seq="20151127165936_69" from="conf:spconf_82_2/" type="response" to="linj/computer" module="MID_CONF">
+  <config type="set"/>
+</message>
+
+设置成功后，服务端会向自己推送一条信息，通知哪个个人设置改变了，用于在同一账号不同终端之间同步。
+
+<message type="notification" module="base">
+  <notice event="config_change">
+    <undefined>conf2</undefined>
+  </notice>
+</message>
+
+
+

@@ -1,0 +1,111 @@
+1.获取所有我可以参与的实时对讲：客户端需要送上所有讨论组和群组的实时对讲id，服务端返回目前正在进行的实时对讲信息，包括个人的实时对讲。
+<message type='request' seq='5' module='MID_INTERPHONE'>
+    <interphones type='sync'/>
+        <interphone id='group_58' />
+        <interphone id='discuss_12' />
+    <interphones />
+</message>
+ 
+<message type='response' seq='5' module='MID_INTERPHONE'>
+    <interphones type='sync'>
+        <interphone id='group_58' attach_type='group' attach_id='58' member_count='2 '/>
+        <interphone id='discuss_12' attach_type='discuss' attach_id='12' member_count='4' />
+        <interphone id='chat_lxx:sung' attach_type='chat' attach_id='sung' member_count='1' />
+    <interphones>
+</message>
+ 
+2. 获取实时对讲的成员列表，客户端送上实时对讲的id，服务端返回实时对讲的成员信息和目前谁正在说话
+<message type='request' seq='1_2' module='MID_INTERPHONE'>
+    <interphone type='sync' id='discuss_12' />
+</message>
+ 
+<message type='response' seq='1_2' module='MID_INTERPHONE'>
+    <interphone type='sync' id='discuss_12' attach_type='discuss' attach_id='12' member_count='3 'speaker='sung'>
+        <member id='sung' />
+        <member id='lixx' />
+        <member id='wux' />
+    </interphone>
+</message>
+ 
+3.加入实时对讲
+<message type='request' seq='3' module='MID_INTERPHONE'>
+    <interphone type='add' id='discuss_12'/>
+        <member id='sung'>
+    </interphone>
+</message>
+ 
+<message type='response' seq='3' module='MID_INTERPHONE'>
+    <interphone type='add' id='discuss_12' attach_type='discuss' attach_id='12' member_count='3' speaker='lixx'>
+        <member id='sung'/>
+        <member id='lixx'/>
+        <member id='wux'/>
+    </interphone>
+</message>
+ 
+加入实时对讲返回该实时对讲的成员信息。加入成功后同时需要向所有成员推送变化通知。
+ 
+4.退出实时对讲
+<message type='request' seq='4' module='MID_INTERPHONE'>
+    <interphone type='quit' id='discuss_12'>
+        <member id='sung'/>
+    </interphone>
+</message>
+ 
+<message type='response' seq='4' module='MID_INTERPHONE'>
+    <interphone type='quit' id='discuss_12' attach_type='discuss' attach_id='12' member_count='2'/>
+</message>
+ 
+退出实时对讲成功后应该向所有成员推送变化通知，member_count=0表示该实时对讲已结束。
+ 
+5.实时对讲发生变化的通知：关于我的实时对讲列表发生变化时，服务端进行通知下发，当成员发生变化或是讲话者发生变化时都需要通知，member_count=0表示该实时对讲已结束。
+<message type='notification' module='MID_INTERPHONE'>
+    <interphone id='discuss_12' attach_id='12' attach_type='discuss' member_count='4' speaker='lixx' />
+</message>
+ 
+具体信令张工可以再修改。
+ 
+ 
+6. 请求说话
+ 
+    <message type='request' seq='1_2' module='MID_INTERPHONE'>
+        <speak type='on' id='discuss_12' />
+    </message>
+    <message type='request' seq='1_2' module='MID_INTERPHONE'>
+        <speak type='off' id='discuss_12' />
+    </message>
+ 
+    <message type='response' seq='1_2' module='MID_INTERPHONE'>
+        <speak/>
+    </message>
+    <message type='response' seq='1_2' module='MID_INTERPHONE'>
+        <speak errcode='' errmsg=''/>
+    </message>
+ 
+type:on[请求说话]off[请求说话完毕]
+ 
+7.udp部分信令
+ 
+/* audiopacket
+    crc32   |type   |id     |uid    |seq    |audioframe
+    4       |4      |4+len  |4+len  |4      |[4+frame]
+*/
+ 
+/* recvbegin
+    crc32   |type   |id     |uid
+    4       |4      |4+len  |4+len
+*/
+ 
+与session部分类似,稍作改动.
+crc32:暂时不用
+type:
+enum UdpPacketType
+{
+    invalidpacket       = 0,
+    audiopacket         = 1,
+    recvbegin           = 2,
+    recvbegin_ack       = 2,
+};
+id:interphone的id
+uid:用户id,谁发的就是谁的id
+seq:udp包的序列号,没人说话一次都从0开始,这样比较容易判断
+audioframe:音频帧,约定为OPUS的一个帧,时长可以稍微长一点,500ms或者多少

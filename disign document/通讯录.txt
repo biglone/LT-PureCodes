@@ -1,0 +1,71 @@
+﻿spim
+1.加载roster,有版本号
+2.更改roster[add,delete],如果有修改,则先delete再add
+
+/* 
+    roster 只能分两层,一层是组名,一层是联系人
+    roster 本身有版本号,如果有修改,则版本号就升
+    roster 中每一项是一个联系人
+    联系人包括：id,这个是用户id
+                name,联系人显示名称,这个由终端决定,允许与用户名有区别
+                group,这个联系人在联系人列表中的分组名,分组没有id,只是字符串
+    联系人没有顺序,顺序由终端决定
+    分组也没有顺序,顺序由终端决定
+*/
+<message type='request' seq='123456' module='MID_IM'>
+    <roster type='sync' version='1'/>
+</message>
+
+<message type='response' seq='123456' module='MID_IM'>
+    <roster type='sync' version='1'/>
+</message>
+<message type='response' seq='123456' module='MID_IM'>
+    <roster type='sync' version='3'>
+        <item group='分组1' id='101' name='赵某某'/>
+        <item group='分组2' id='221' name='钱某某'/>
+        <item group='分组1' id='121' name='孙某某'/>
+        <item group='分组3' id='300' name='李某某'/>
+        <item group='分组4' id='093' name='周某某'/>
+    </roster>
+</message>
+
+/* 
+    roster 的修改,只支持add和delete
+    如果想修改某一个联系人的信息,请先delete再add
+    modify支持批量修改
+*/
+<message type='request' seq='123457' module='MID_IM'>
+    <roster type='modify'>
+        <item type='add' group='分组x' id='234' name='吴某某'/>
+        <item type='delete' group='分组y' id='345' name='郑某某'/>
+    </roster>
+</message>
+
+<message type='response' seq='123457' module='MID_IM'>
+    <roster type='modify'/>
+</message>
+
+
+sp通讯录
+1.组织结构,有版本号
+2.节点下的人,有版本号
+
+/*
+    os,组织结构,同步组织结构
+    这个东西通过文件传输服务器来下载,这边只给版本号,文件名,文件大小
+    文件由该程序通过数据库来生成,文件格式由相应文档说明
+*/
+<message type='request' seq='123458' module='MID_OS'>
+    <os/>
+</message>
+
+<message type='response' seq='123458' module='MID_OS'>
+    <os>
+    	<!-- 文件名格式: os.os_domain_versionupdatetime.ctz -->
+    	<!-- domain:权限域,name:文件名,size:文件大小 -->
+        <file domain='1' name='os.os_1_2014-01-01 11-11-11.ctz' size='123456'/>
+        <file domain='2' name='os.os_2_2014-01-11 12-11-11.ctz' size='123'/>
+        <file domain='3' name='os.os_3_2014-01-01 11-11-11.ctz' size='456'/>
+        <file domain='5' name='os.os_5_2014-02-01 11-11-11.ctz' size='3456'/>
+    </os>
+</message>

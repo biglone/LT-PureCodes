@@ -1,0 +1,100 @@
+1. 查询个人资料版本
+
+Url：/api/pmuser/version/query
+参数：ids 多个用户ID用逗号分隔
+例如：
+请求URL：/api/pmuser/version/query?ids=feij,zhangb,xucl
+返回结果：
+{
+    "ret": 270001,
+    "msg": "用户版本查询成功",
+    "userVersionList": [
+        {
+            "version": 1,
+            "userId": "feij",
+            "updateTime": "2014-01-27 15:14:23"
+        },
+        {
+            "version": 9,
+            "userId": "xucl",
+            "updateTime": "2014-11-20 14:27:51"
+        },
+        {
+            "version": 174,
+            "userId": "zhangb",
+            "updateTime": "2014-10-28 14:06:06"
+        }
+    ]
+}
+
+如果请求的用户version在结果中没有返回，则该用户已经在后台删除。例如：请求feij，zhangb和xucl的个人资料版本，而只返回了feij和zhangb的版本，则说明xucl已在后台删除。
+
+2. 查询个人资料
+
+Url：/api/pmuser/detail/{userId}
+参数：userId
+例如：
+请求URL：/api/pmuser/detail/feij
+返回结果：
+{
+    "ret": 270002,
+    "msg": "用户详情查询成功",
+    "detail": {
+        "message": null,
+        "version": 1,
+        "username": "费俊",
+        "organization": "广达科技",
+        "userId": "feij",
+        "departmentList": [
+            {
+                "name": "产品二部",
+                "id": "88880005",
+                "index": 0
+            },
+            {
+                "name": "产品一部",
+                "id": "88880006",
+                "index": 0
+            }
+        ],
+        "email": "fei.jun@cybertech.com.cn",
+        "sex": null,
+        "updateTime": "2014-01-27 15:14:23.0",
+        "birthday": null,
+        "phone1": "12312312323",
+        "phone2": null,
+        "phone3": null,
+        "duty": null,
+        "area": null,
+        "jobDesc": null，
+	"disabled": 0
+    }
+}
+
+disabled为0即该用户存在，如果为1，则在后台已删除。另外注意，如果查询的detail返回为空，该用户在后台也是已删除了，同disabled为1相同对待。
+
+
+3. 头像接口
+
+http://url/pmmanage/api/pmuser/photo/{userId}
+参数：userId
+例如：
+请求URL：/api/pmuser/photo/feij
+返回结果：
+图像数据
+
+
+4. 上传头像
+
+http://url/pmmanage/api/pmuser/uploadphoto
+参数： userId: 用户id
+       photo: 图像数据
+以form-data格式上传
+返回结果：无， 200成功
+
+5. 下载原始头像
+
+http://url/pmmanage/api/pmuser/rawphoto/{userId}
+参数：userId
+返回结果：
+图像数据

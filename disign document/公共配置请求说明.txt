@@ -1,0 +1,104 @@
+
+// 获取升级链上的最新版本的公共配置版本信息
+http://58.211.187.150:8081/pmmanage/configuration/cversion/{platform}/{version}
+
+例如：
+http://58.211.187.150:8081/pmmanage/configuration/cversion/win32/2.8.4796
+
+<root>
+	<ret>0</ret>
+	<msg>请求成功</msg>
+	<version>
+		<pm_version>2.8.4796</pm_version>
+		<config_version>11</config_version>
+	</version>
+</root>
+
+
+
+// 查询配置
+http://58.211.187.150:8081/pmmanage/configuration/commons/{platform}/{version}
+
+例如：
+http://58.211.187.150:8081/pmmanage/configuration/commons/win32/2.8.4796
+
+<root>
+	<ret>0</ret>
+	<msg>请求操作成功</msg>
+	<configurations>
+		<configuration>
+			<key>title</key>
+			<value>企讯通</value>
+		</configuration>
+		<configuration>
+			<key>encrypt</key>
+			<value>rc4</value>
+		</configuration>
+		<configuration>
+			<key>login_ip</key>
+			<value>58.211.187.150</value>
+		</configuration>
+		<configuration>
+			<key>login_port</key>
+			<value>18801</value>
+		</configuration>
+		<configuration>
+			<key>transfer_ip</key>
+			<value>58.211.187.150</value>
+		</configuration>
+		<configuration>
+			<key>transfer_port</key>
+			<value>8805</value>
+		</configuration>
+		<configuration>
+			<key>update_url</key>
+			<value>http://download.pm.com</value>
+		</configuration>
+	</configurations>
+</root>
+
+
+备注：
+
+配置中的 platform 可能会是 common , 这样的配置标识 win32, android , iphone 是相同的配置
+
+
+// 查询升级信息
+http://58.211.187.150:8081/pmmanage/configuration/updateinfo/{platform}/{version}
+
+例如：
+http://58.211.187.150:8081/pmmanage/configuration/updateinfo/win32/2.8.4796
+
+<root>
+	<ret>0</ret>
+	<msg>请求操作成功</msg>
+	<updateinfo>
+		<update_url>http://download.pm.com</update_url>
+		<update_desc>这是一个新版本</update_desc>		
+	</updateinfo>
+</root>
+
+
+配置项说明：
+
+<!------ 通用部分  -------->
+<version>1.0</version>                                 <!-- 公共设置的版本号 -->           
+<platform>win32</platform>                             <!-- 平台 -->
+<title>企讯通/警讯通/视讯通</title>                    <!-- 程序名称 -->
+<encrypt>none/rc4/ssl</encrypt>                        <!-- 通讯加密方式： none：不加密 rc4：rc4加密，现有正在使用 ssl：openssl加密，马上要做 -->
+<splash>http://download.pm.com/splash</splash>         <!-- 启动页面链接地址 -->
+
+<!------ 登录设置 --------->
+<login_ip>58.211.187.150</login_ip>                    <!-- 登录ip -->
+<login_port>18801</login_port>                         <!-- 登录端口 -->
+<transfer_ip>58.211.187.150</transfer_ip>              <!-- 文件传输ip -->
+<transfer_port>8805</transfer_port>                    <!-- 文件传输端口 -->
+
+<!------ 升级设置  -------->
+<update_url>http://download.pm.com/update</update_url> <!-- 当前最新版本的下载地址，通过http方式下载 -->
+
+
+
+
+
+

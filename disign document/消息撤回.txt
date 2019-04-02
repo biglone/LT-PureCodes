@@ -1,0 +1,47 @@
+一. 消息撤回可以用于单聊消息、群组消息和讨论组消息。
+
+二. 消息撤回的有效时间为2分钟，终端自己判断该条消息是否在有效时间之内，如果在有效时间之内，则发送撤回请求；超过有效时间，则友好提示用户无法撤回。服务端不对撤回的消息做时间检查。
+
+三. 流程与协议：
+    1. 发送消息撤回请求
+    <message seq="20160509163923_14" type="request" module="MID_IM">
+      <withdraw type="chat" to="lixx" from="sung1" timestamp="00000000001462781987322139374"/>
+    </message>
+    如果是单聊消息，type为chat，to为对方的id；
+    如果是群组消息，type为groupchat，to为群组的id；
+    如果是讨论组消息，type为discuss，to为讨论组的id。
+
+    2. 服务端收到该条请求，需要采取以下三个步骤：
+        a. 根据type，to和timestamp的值，在数据库中删除该条消息。并且服务端需要为该条撤回生成一个按照时间顺序增长的id。
+        如果成功，
+
+        b. 返回请求的响应：
+        <message seq="20160509163923_14" type="response" from="im:spim_83_1/" to="sung1/computer" module="MID_IM">
+          <withdraw type="chat" to="lixx" from="sung1" timestamp="00000000001462781987322139374" id="1234"/>
+        </message>
+
+        c. 如果对方在线，则向对方推送相应的信息；如果是群组消息或是讨论组消息，则向该群组或是讨论组的所有在线成员推送相应的信息。
+        <message type="notification" to="lixx" module="MID_IM">
+          <withdraw type="chat" to="lixx" from="sung1" timestamp="00000000001462781987322139374" id="1234"/>
+        </message>
+
+    3. 请求发送者收到请求应答，则删除该条消息，在该条消息位置替换为“你撤回了一条消息"。
+
+    4. 对方收到消息撤回的推送，也删除该条消息，在该条消息位置替换为“xx撤回了一条消息”。
+
+    5. 客户端需要保存最后一条撤回消息的id，等下次上线时，主动去拉取属于自己的并且id在最后一条撤回id之后的撤回记录。
+       如果第一次登录客户端，则withdrawId为空，服务端返回所有撤回的记录。
+
+    <message seq="20160509184925_88" type="request" module="MID_IM">
+      <withdraws type="sync" uid="lixx" withdrawId="1234"/>
+    </message>
+
+    <message seq="20160509184925_88" type="response" from="im:spim_83_1/" to="sung1/computer" module="MID_IM">
+      <withdraws type="sync" uid="lixx" withdrawId="1234">
+        <withdraw type="chat" to="lixx" from="sung1" timestamp="00000000001462781987322139399" id="2345">
+        <withdraw type="groupchat" to="2" from="sung1" timestamp="00000000001462781987322139400" id="3456">
+        <withdraw type="discuss" to="3" from="sung1" timestamp="00000000001462781987322139401" id="4567">
+      </withdraws>
+    </message>
+
+四. 如果对方离线时，进行了消息撤回，等对方上线的时候，不会收到被撤回的消息，因为服务端已删除了该条消息，满足预期行为，和微信及QQ行为一致。
